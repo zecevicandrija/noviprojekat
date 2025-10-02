@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  padding: 2rem 1rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  position: relative;
+}
+
+.formWrapper {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(2,8,23,0.3);
+  width: 100%;
+  max-width: 440px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.formWrapper:hover {
+  box-shadow: 0 25px 50px rgba(2,8,23,0.4);
+  transform: translateY(-2px);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+  color: #f6190d;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #bcd6ff;
+  text-align: center;
+  margin: 0 0 2rem 0;
+  line-height: 1.5;
+}
+
+.error {
+  background: rgba(244, 67, 54, 0.15);
+  color: #ffd0d0;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #dbeaff;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  color: #e7eefc;
+  font-size: 1rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.formGroup input:focus {
+  border-color: rgba(30,99,214,0.6);
+  box-shadow: 0 0 0 3px rgba(30,99,214,0.1);
+  background: rgba(255,255,255,0.06);
+}
+
+.formGroup input::placeholder {
+  color: rgba(188,214,255,0.5);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(30,99,214,0.3);
+  margin-top: 0.5rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(30,99,214,0.4);
+  background: linear-gradient(135deg, #4aa3ff, #1e63d6);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.registerLink {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #bcd6ff;
+  font-size: 0.95rem;
+}
+
+.registerLink a {
+  color: #4aa3ff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.registerLink a:hover {
+  color: #66b3ff;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Tablet styles (768px i manje) */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .formWrapper {
+    padding: 2rem;
+    border-radius: 18px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+}
+
+/* Mobile styles (480px i manje) */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
+
+  .formWrapper {
+    padding: 1.75rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form {
+    gap: 1.25rem;
+  }
+
+  .formGroup input {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  .submitBtn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  .error {
+    padding: 0.875rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .registerLink {
+    font-size: 0.9rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+  }
+}
+
+/* Very small screens (320px i manje) */
+@media (max-width: 320px) {
+  .formWrapper {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+
+  .formGroup input,
+  .submitBtn {
+    padding: 0.75rem;
+  }
+}
+
+/* iOS Safari specifics */
+@supports (-webkit-touch-callout: none) {
+  .formWrapper {
+    backdrop-filter: none;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .container {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

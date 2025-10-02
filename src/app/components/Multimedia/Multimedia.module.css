@@ -1,0 +1,512 @@
+.multimedia {
+  padding: 4rem 1rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  position: relative;
+  overflow: hidden;
+}
+
+.multimedia::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--blue-600), var(--red-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #bcd6ff;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Stilovi za slider karticu (16:9) */
+.sliderCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  object-fit: cover;
+}
+
+.slideOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.1) 30%,
+    rgba(0,0,0,0.5) 70%,
+    rgba(0,0,0,0.7) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.slideContent {
+  max-width: 80%;
+}
+
+.slideTitle {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.slideDescription {
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Kontrole slidera */
+.prevButton, .nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.prevButton:hover, .nextButton:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevButton {
+  left: 1rem;
+}
+
+.nextButton {
+  right: 1rem;
+}
+
+.autoplayButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.autoplayButton:hover {
+  background: rgba(0,0,0,0.8);
+  transform: scale(1.1);
+}
+
+.indicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: rgba(255,255,255,0.7);
+}
+
+/* Stilovi za video karticu (9:16) */
+.videoCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  flex-grow: 1;
+}
+
+.videoContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 9/16;
+}
+
+.verticalVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.4) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0,0,0,0.6) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.videoBadge {
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--blue-600), var(--red-600));
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.videoContent {
+  text-align: center;
+}
+
+.videoTitle {
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.videoDescription {
+  color: rgba(255,255,255,0.9);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Blog sekcija stilovi */
+.blogSection {
+  display: flex;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.blogSection:hover {
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(2,8,23,0.3);
+}
+
+.blogContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.blogTitle {
+  font-size: 1.5rem;
+  color: var(--blue-600);
+  margin: 0;
+  font-weight: 600;
+}
+
+.blogDescription {
+  color: #bcd6ff;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.blogCta {
+  color: #e7eefc;
+  font-weight: 500;
+  margin: 0;
+}
+
+.blogButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--blue-600), var(--red-600));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.blogButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 99, 214, 0.3);
+}
+
+.buttonIcon {
+  transition: transform 0.3s ease;
+}
+
+.blogButton:hover .buttonIcon {
+  transform: translateX(3px);
+}
+
+/* Blog sekcija za mobile - sakriva se na desktopu */
+.blogSectionMobile {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .videoWrapper {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* Sakrij desktop blog sekciju i prikaži mobile verziju */
+  .blogSection {
+    display: none;
+  }
+
+  .blogSectionMobile {
+    display: flex;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .blogSectionMobile:hover {
+    border-color: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(2,8,23,0.3);
+  }
+}
+
+@media (max-width: 768px) {
+  .multimedia {
+    padding: 3rem 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .slideTitle {
+    font-size: 1.5rem;
+  }
+  
+  .slideDescription {
+    font-size: 0.9rem;
+  }
+  
+  .prevButton, .nextButton {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .videoTitle {
+    font-size: 1.1rem;
+  }
+  
+  .videoDescription {
+    font-size: 0.8rem;
+  }
+
+  .blogTitle {
+    font-size: 1.3rem;
+  }
+
+  .blogDescription, .blogCta {
+    font-size: 0.9rem;
+  }
+
+  .blogSectionMobile {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .multimedia {
+    padding: 2rem 0.5rem;
+  }
+
+  .videoCard {
+    max-width: 300px;
+    margin: auto;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .slideOverlay {
+    padding: 1.5rem;
+  }
+  
+  .slideContent {
+    max-width: 100%;
+  }
+  
+  .slideTitle {
+    font-size: 1.3rem;
+  }
+  
+  .videoOverlay {
+    padding: 1rem;
+  }
+
+  .blogSectionMobile {
+    padding: 1.25rem;
+  }
+
+  .blogContent {
+    gap: 0.75rem;
+  }
+
+  .blogButton {
+    align-self: stretch;
+    text-align: center;
+    justify-content: center;
+  }
+}

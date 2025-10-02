@@ -1,0 +1,143 @@
+/* src/app/blog/page.module.css */
+
+.blogListPage {
+  min-height: 100vh;
+  background: var(--bg);
+  color: #e7eefc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem 1rem;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--blue-600);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(30,99,214,0.06);
+  transition: all 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.backButton:hover {
+  background: rgba(30,99,214,0.12);
+  transform: translateX(-4px);
+  color: #4aa3ff;
+}
+
+.backIcon {
+  font-size: 0.85rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin: 2rem 0 3rem 0;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 2.75rem;
+  margin: 0 0 1rem 0;
+  color: var(--red-100);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--red-100), #ff6b66);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: #bcd6ff;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Blog Grid */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 984px) {
+  .container {
+    padding: 1.5rem 1rem 3rem 1rem;
+  }
+
+  .header {
+    margin: 1.5rem 0 2.5rem 0;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+  }
+
+  .blogGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem 0.75rem 2.5rem 0.75rem;
+  }
+
+  .backButton {
+    margin-left: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header {
+    margin: 1rem 0 2rem 0;
+  }
+
+  .title {
+    font-size: 1.85rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .blogGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 0 0.25rem;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 380px) {
+  .title {
+    font-size: 1.65rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .backButton {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+}

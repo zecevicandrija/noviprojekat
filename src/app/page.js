@@ -1,95 +1,108 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+export const metadata = {
+  title: 'Dijalog — Podcast',
+  description: 'Dijalog podcast — razgovori sa kreativnim ljudima o idejama, pameti i veri. Slušaj najnovije epizode, pročitaj transkripte i pretplati se na newsletter.',
+  keywords: 'podcast, dijalog, kreativnost, razgovori, ideje, vera, sport, biznis, religija, biblija, knjige',
+};
 
-export default function Home() {
+import Image from 'next/image'
+import styles from './page.module.css'
+import NewsletterForm from './NewsletterForm'
+import Footer from './components/Footer/Footer'
+import Navbar from './components/Navbar/Navbar'
+import ContactForms from './components/ContactForms/ContactForms';
+import Multimedia from './components/Multimedia/Multimedia';
+import PlayLatestBtn from "./components/PlayLatestBtn";
+import { FaPlay } from 'react-icons/fa';
+import Pitanja from './components/Pitanja/Pitanja';
+import BlogPreview from './components/BlogPreview/BlogPreview';
+
+export default function Page() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className={styles.container}>
+      <Navbar />
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          <div className={styles.heroContent}>
+            <h2 className={styles.heroTitle}>Dijalog Podcast</h2>
+            <p className={styles.lead}>Naša ideja je da gledaocima, kroz razgovor sa gostima, prenesemo dobru ili lošu informaciju na adekvatan način kako bi oni sami doneli najbolje zaključke.</p>
+
+            <div className={styles.actions}>
+              <button className={styles.playBtn} aria-label="Pusti najnoviju epizodu"><FaPlay className={styles.playIcon} /> Pusti najnoviju</button>
+              <a href="#newsletter" className={styles.subscribe}>Pretplati se</a>
+            </div>
+
+            <div className={styles.badges}>
+              <span className={styles.badge}>Spotify</span>
+              <span className={styles.badge}>YouTube</span>
+            </div>
+          </div>
+
+          <div className={styles.heroMedia}>
+            <div className={styles.card}>
+              <Image src="/Assets/channels4_banner.jpg" alt="Dijalog hero" width={760} height={430} className={styles.heroImage} />
+              {/* <div className={styles.glow} /> */}
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      <section id="epizode" className={styles.section}>
+  <h3 className={styles.sectionTitle}>Najnovije epizode</h3>
+  <div className={styles.grid}>
+    <article className={styles.episodeCard}>
+      <a 
+        href="https://youtu.be/Oq9OgAyInVo?si=UC-pebisjbUrdmLM" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.episodeLink}
+      >
+        <div className={styles.thumb}>
+          <Image src="/Assets/dijalogthumb.jpg" alt="Epizoda 1" width={320} height={180} />
+        </div>
+        <div className={styles.epContent}>
+          <h4>dijalog Podcast 107 | DRAGOSLAV BOKAN - Srbi treba da nauče nešto iz istorije ili ćemo propasti</h4>
+          <p className={styles.epMeta}>2h 18min • 09.09.2025.</p>
+        </div>
+      </a>
+    </article>
+
+    <article className={styles.episodeCard}>
+      <a 
+        href="https://youtu.be/bU5tD_yyGww?si=YZmKh5ithiYbpuq6" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.episodeLink}
+      >
+        <div className={styles.thumb}>
+          <Image src="/Assets/ddd.jpg" alt="Epizoda 2" width={320} height={180} />
+        </div>
+        <div className={styles.epContent}>
+          <h4>{`dijalog 106 | BARBARA O'NEILL - Božija bašta je najbolja apoteka / God's garden is the best pharmacy`}</h4>
+          <p className={styles.epMeta}>45min • 18.08.2025.</p>
+        </div>
+      </a>
+    </article>
+  </div>
+</section>
+
+      <section id="newsletter" className={styles.newsletter}>
+        <div className={styles.newsInner}>
+          <h3>Prijavi se na newsletter</h3>
+          <p>Najnovije epizode, obaveštenja i bonus sadržaj direktno u inbox.</p>
+          <NewsletterForm />
+        </div>
+      </section>
+      <section id='pitanja'><Pitanja /></section>
+      <Multimedia />
+      <section id ='kontakt'>
+      <ContactForms />
+      </section>
+      <section id ='blog'>
+        <BlogPreview />
+      </section>
+
+     <Footer />
+    </main>
+  )
 }

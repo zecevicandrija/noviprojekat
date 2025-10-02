@@ -1,6 +1,15 @@
+/* globals.css - zameni postojeći sa ovim */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --blue-900: #052c6b;
+  --blue-600: #1e63d6;
+  --red-600: #d43f3a;
+  --red-400: #ff6b66;
+  --red-100: #f6190d;
+  --bg: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  --glass: rgba(255,255,255,0.04)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -10,33 +19,76 @@
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Reset and base styles */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  /* Prevent iOS tap highlight */
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+html, body {
+  height: 100%;              /* koristi height umesto min-height */
+  min-height: 100%;          /* da osigura full visinu */
+  overflow-x: hidden;
+  overscroll-behavior: none; /* sprečava “bounce shadow” na dnu i vrhu */
+  -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
+    font-family: "Bai Jamjuree", sans-serif;
+
+}
+
+body {
+  position: static;          /* NIKADA relative ovde */
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Bai Jamjuree", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+  overflow: hidden;
+  position: static;          /* pusti body da ostane static */
+}
+
+
+html.menu-open {
+  height: 100%;
+  overflow: hidden;          /* zaključa scroll kad je otvoren meni */
+}
+
+/* Main container fix */
+main {
+  position: relative;
+  z-index: 1;
+  /* iOS rendering fix */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  /* Prevent iOS link tap delay */
+  touch-action: manipulation;
 }
+
+button {
+  /* Prevent iOS button tap delay */
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
