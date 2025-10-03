@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  font-family: "Bai Jamjuree", sans-serif;
+  color: #e7eefc;
+  padding: 2.5rem 1.25rem;
+}
+
+.header {
+  max-width: 900px;
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: #dbeaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #f6190d;
+  font-weight: 700;
+}
+
+.formWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #dbeaff;
+  font-size: 0.95rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  color: #e7eefc;
+  font-size: 1rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: rgba(30,99,214,0.6);
+  box-shadow: 0 0 0 3px rgba(30,99,214,0.1);
+  background: rgba(255,255,255,0.06);
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: rgba(188,214,255,0.5);
+}
+
+/* Form Row (2 columns) */
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Preview thumbnail */
+.preview {
+  margin-top: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 400px;
+}
+
+.preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Gost input */
+.gostInputWrapper {
+  position: relative;
+}
+
+.gostSearchBox {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bcd6ff;
+  opacity: 0.6;
+}
+
+.gostInput {
+  flex: 1;
+  padding-left: 3rem !important;
+}
+
+.addNewBtn {
+  padding: 0.875rem 1.25rem;
+  background: rgba(30,99,214,0.15);
+  border: 1px solid rgba(30,99,214,0.3);
+  border-radius: 10px;
+  color: #4aa3ff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.addNewBtn:hover {
+  background: rgba(30,99,214,0.25);
+  border-color: rgba(30,99,214,0.5);
+}
+
+/* Suggestions dropdown */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: rgba(7,18,52,0.98);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 12px 32px rgba(2,8,23,0.6);
+  backdrop-filter: blur(10px);
+}
+
+.suggestionItem {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.suggestionItem:hover {
+  background: rgba(30,99,214,0.15);
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem strong {
+  color: #e7eefc;
+}
+
+.suggestionItem span {
+  color: #bcd6ff;
+  font-size: 0.9rem;
+}
+
+/* Selected gosti chips */
+.selectedGosti {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.gostChip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(30,99,214,0.15);
+  border: 1px solid rgba(30,99,214,0.3);
+  border-radius: 20px;
+  color: #dbeaff;
+  font-size: 0.9rem;
+}
+
+.removeChip {
+  padding: 0.25rem;
+  background: rgba(244,67,54,0.2);
+  border: none;
+  border-radius: 50%;
+  color: #ff6b66;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 20px;
+  height: 20px;
+}
+
+.removeChip:hover {
+  background: rgba(244,67,54,0.4);
+  transform: scale(1.1);
+}
+
+/* Message */
+.message {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.message.success {
+  background: rgba(76, 175, 80, 0.15);
+  color: #b6ffcc;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.message.error {
+  background: rgba(244, 67, 54, 0.15);
+  color: #ffd0d0;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+/* Submit button */
+.submitBtn {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(30,99,214,0.3);
+  margin-top: 1rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(30,99,214,0.4);
+  background: linear-gradient(135deg, #4aa3ff, #1e63d6);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .formWrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .gostSearchBox {
+    flex-direction: column;
+  }
+
+  .addNewBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 0.875rem;
+  }
+
+  .formWrapper {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .form {
+    gap: 1.5rem;
+  }
+
+  .submitBtn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}

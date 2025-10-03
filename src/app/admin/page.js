@@ -38,10 +38,10 @@ export default function AdminPanel() {
           <p>Pregledajte sva pitanja koja su korisnici postavili</p>
         </Link>
         
-        <div className={styles.card}>
-          <h2>Upravljanje korisnicima</h2>
-          <p>Ovde možete upravljati korisnicima sistema</p>
-        </div>
+        <Link href='/admin/epizode' className={styles.card}>
+          <h2>Upravljanje epizodama</h2>
+          <p>Ovde možete upravljati epizodama</p>
+        </Link>
         
         <div className={styles.card}>
           <h2>Blog postovi</h2>

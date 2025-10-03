@@ -95,7 +95,7 @@ export default function Navbar() {
         
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
-          <Link href="/#epizode" onClick={closeMenu}>Epizode</Link>
+          <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
           <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>

@@ -412,6 +412,58 @@
   transform: scale(1.1);
 }
 
+/* Danger Zone */
+.dangerZone {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(244, 67, 54, 0.05);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  border-radius: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clearAllBtn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 10px;
+  color: #ff6b66;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: auto;
+}
+
+.clearAllBtn:hover {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: rgba(244, 67, 54, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 67, 54, 0.3);
+}
+
+.clearAllBtn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .dangerZone {
+    padding: 1rem;
+  }
+  
+  .clearAllBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
 /* Tablet Responsive */
 @media (max-width: 968px) {
   .container {

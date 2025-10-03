@@ -143,7 +143,7 @@ export default function Pitanja() {
           <FaQuestionCircle className={styles.icon} />
           <h3 className={styles.title}>Postavite pitanje novom gostu</h3>
           <p className={styles.subtitle}>
-            Imate pitanje za našeg sledećeg gosta? Podelite ga sa nama i možda će biti postavljeno u narednoj epizodi u petak <strong>10.10.2025.</strong>
+            Imate pitanje za našeg sledećeg gosta? Podelite ga sa nama i možda će biti postavljeno u narednoj epizodi.
           </p>
           <div className={styles.countdown}>
             <p className={styles.countdownLabel}>Sledeća epizoda:</p>

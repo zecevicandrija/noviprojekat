@@ -60,6 +60,34 @@ export default function AdminPitanja() {
     }
   };
 
+  const handleClearAll = async () => {
+  const confirmMsg = `⚠️ UPOZORENJE ⚠️\n\nOvo će trajno obrisati SVA pitanja (${pitanja.length} pitanja).\n\nOva akcija se ne može poništiti!\n\nDa li ste apsolutno sigurni?`;
+  
+  if (!confirm(confirmMsg)) {
+    return;
+  }
+
+  // Dupla potvrda za sigurnost
+  const doubleConfirm = prompt('Unesite "OBRIŠI SVE" da potvrdite:');
+  if (doubleConfirm !== 'OBRIŠI SVE') {
+    alert('Akcija otkazana');
+    return;
+  }
+
+  try {
+    const response = await api.delete('/api/pitanja/clear-all');
+    
+    // Očisti state
+    setPitanja([]);
+    setGroupedPitanja([]);
+    
+    alert(`✓ Uspešno obrisano ${response.data.deletedCount} pitanja`);
+  } catch (error) {
+    console.error('Error clearing all questions:', error);
+    alert('Greška prilikom brisanja svih pitanja');
+  }
+};
+
   const toggleGroup = (groupId) => {
     const newExpanded = new Set(expandedGroups);
     if (newExpanded.has(groupId)) {
@@ -72,7 +100,7 @@ export default function AdminPitanja() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('sr-RS', {
+    return date.toLocaleDateString('sr-Latn-RS', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -122,6 +150,17 @@ export default function AdminPitanja() {
             <FaLayerGroup /> Grupisana
           </button>
         </div>
+        {pitanja.length > 0 && (
+  <div className={styles.dangerZone}>
+    <button 
+      className={styles.clearAllBtn}
+      onClick={handleClearAll}
+      title="Obriši sva pitanja"
+    >
+      <FaTrash /> Obriši sve ({pitanja.length})
+    </button>
+  </div>
+)}
       </header>
 
       {loading ? (
