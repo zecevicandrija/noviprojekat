@@ -18,11 +18,15 @@ const authRouter = require('./routes/auth');
 const korisniciRouter = require('./routes/korisnici');
 const pitanjaRouter = require('./routes/pitanja');
 const pitanjaGroupedRouter = require('./routes/pitanjaGrouped');
+const epizodeRouter = require('./routes/epizode');
+const gostiRouter = require('./routes/gosti');
 
 app.use('/api/auth', authRouter);
 app.use('/api/korisnici', korisniciRouter);
 app.use('/api/pitanja', pitanjaRouter);
 app.use('/api/pitanjaGrouped', pitanjaGroupedRouter);
+app.use('/api/epizode', epizodeRouter);
+app.use('/api/gosti', gostiRouter);
 
 // Test route
 app.get('/', (req, res) => {
