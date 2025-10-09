@@ -143,7 +143,7 @@ export default function Navbar() {
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
           <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
-          <Link href="/shop" className={styles.cta}>Shop</Link>
+          <Link href="/shop" className={styles.cta} onClick={closeMenu}>Shop</Link>
         </nav>
       </div>
     </>
