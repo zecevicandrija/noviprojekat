@@ -12,13 +12,6 @@
   --glass: rgba(255,255,255,0.04)
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -82,14 +75,6 @@ button {
   touch-action: manipulation;
   -webkit-appearance: none;
   appearance: none;
-}
-
-
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
 
 /* Navbar global styles */
