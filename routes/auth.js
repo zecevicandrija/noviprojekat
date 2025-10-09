@@ -5,13 +5,6 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 const { protect } = require('../middleware/auth');
 
-
-// TEST RUTA - dodaj ovo na vrh
-router.post('/test', (req, res) => {
-  console.log('✅ TEST RUTA RADI');
-  console.log('Body:', req.body);
-  res.json({ message: 'Test radi!', body: req.body });
-});
 // Generisanje JWT tokena
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {

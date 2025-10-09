@@ -108,4 +108,108 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id', protect, admin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { 
+      ime_prezime, 
+      pozicija, 
+      kompanija, 
+      slika_url, 
+      biografija, 
+      linkedin_url, 
+      instagram_url, 
+      twitter_url, 
+      youtube_url,
+      dostignuce_1,
+      dostignuce_2,
+      dostignuce_3
+    } = req.body;
+    
+    if (!ime_prezime || !ime_prezime.trim()) {
+      return res.status(400).json({ message: 'Ime i prezime su obavezni' });
+    }
+    
+    // Proveri da li gost postoji
+    const [existing] = await pool.execute('SELECT id FROM gosti WHERE id = ?', [id]);
+    
+    if (existing.length === 0) {
+      return res.status(404).json({ message: 'Gost nije pronađen' });
+    }
+    
+    // Update gosta
+    await pool.execute(`
+      UPDATE gosti SET
+        ime_prezime = ?,
+        pozicija = ?,
+        kompanija = ?,
+        slika_url = ?,
+        biografija = ?,
+        linkedin_url = ?,
+        instagram_url = ?,
+        twitter_url = ?,
+        youtube_url = ?,
+        dostignuce_1 = ?,
+        dostignuce_2 = ?,
+        dostignuce_3 = ?
+      WHERE id = ?
+    `, [
+      ime_prezime.trim(),
+      pozicija || null,
+      kompanija || null,
+      slika_url || null,
+      biografija || null,
+      linkedin_url || null,
+      instagram_url || null,
+      twitter_url || null,
+      youtube_url || null,
+      dostignuce_1 || null,
+      dostignuce_2 || null,
+      dostignuce_3 || null,
+      id
+    ]);
+    
+    res.json({ message: 'Gost uspešno ažuriran' });
+  } catch (error) {
+    console.error('Update gost error:', error);
+    res.status(500).json({ message: 'Greška na serveru' });
+  }
+});
+
+// @route   DELETE /api/gosti/:id
+// @desc    Obriši gosta
+// @access  Private/Admin
+router.delete('/:id', protect, admin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Proveri da li gost postoji
+    const [existing] = await pool.execute('SELECT id FROM gosti WHERE id = ?', [id]);
+    
+    if (existing.length === 0) {
+      return res.status(404).json({ message: 'Gost nije pronađen' });
+    }
+    
+    // Proveri da li je gost povezan sa nekom epizodom
+    const [epizode] = await pool.execute(
+      'SELECT id FROM epizode WHERE gost_id = ?',
+      [id]
+    );
+    
+    if (epizode.length > 0) {
+      return res.status(400).json({ 
+        message: 'Ne možete obrisati gosta koji je povezan sa epizodom' 
+      });
+    }
+    
+    // Obriši gosta
+    await pool.execute('DELETE FROM gosti WHERE id = ?', [id]);
+    
+    res.json({ message: 'Gost uspešno obrisan' });
+  } catch (error) {
+    console.error('Delete gost error:', error);
+    res.status(500).json({ message: 'Greška na serveru' });
+  }
+});
+
 module.exports = router;

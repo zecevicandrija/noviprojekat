@@ -46,6 +46,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/clear-all', protect, admin, async (req, res) => {
+  try {
+    const [result] = await pool.execute('DELETE FROM pitanja_gostima');
+    
+    res.json({ 
+      message: 'Sva pitanja su obrisana',
+      deletedCount: result.affectedRows 
+    });
+  } catch (error) {
+    console.error('Clear all questions error:', error);
+    res.status(500).json({ message: 'Greška na serveru' });
+  }
+});
+
 // @route   DELETE /api/pitanja/:id
 // @desc    Obriši pitanje (samo admin)
 // @access  Private/Admin
@@ -69,18 +83,6 @@ router.delete('/:id', protect, admin, async (req, res) => {
   }
 });
 
-router.delete('/clear-all', protect, admin, async (req, res) => {
-  try {
-    const [result] = await pool.execute('DELETE FROM pitanja_gostima');
-    
-    res.json({ 
-      message: 'Sva pitanja su obrisana',
-      deletedCount: result.affectedRows 
-    });
-  } catch (error) {
-    console.error('Clear all questions error:', error);
-    res.status(500).json({ message: 'Greška na serveru' });
-  }
-});
+
 
 module.exports = router;

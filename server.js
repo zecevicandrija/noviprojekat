@@ -20,6 +20,10 @@ const pitanjaRouter = require('./routes/pitanja');
 const pitanjaGroupedRouter = require('./routes/pitanjaGrouped');
 const epizodeRouter = require('./routes/epizode');
 const gostiRouter = require('./routes/gosti');
+const sledeceEpizodeRouter = require('./routes/sledeceEpizode');
+const proizvodiRouter = require('./routes/proizvodi');
+const popustiRouter = require('./routes/popusti');
+const transakcijeRouter = require('./routes/transakcije');
 
 app.use('/api/auth', authRouter);
 app.use('/api/korisnici', korisniciRouter);
@@ -27,6 +31,12 @@ app.use('/api/pitanja', pitanjaRouter);
 app.use('/api/pitanjaGrouped', pitanjaGroupedRouter);
 app.use('/api/epizode', epizodeRouter);
 app.use('/api/gosti', gostiRouter);
+app.use('/api/sledeceEpizode', sledeceEpizodeRouter);
+app.use('/api/proizvodi', proizvodiRouter);
+app.use('/api/popusti', popustiRouter);
+app.use('/api/transakcije', transakcijeRouter);
+
+
 
 // Test route
 app.get('/', (req, res) => {
