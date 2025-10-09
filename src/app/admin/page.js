@@ -42,11 +42,26 @@ export default function AdminPanel() {
           <h2>Upravljanje epizodama</h2>
           <p>Ovde možete upravljati epizodama</p>
         </Link>
-        
-        <div className={styles.card}>
-          <h2>Blog postovi</h2>
-          <p>Upravljajte blog postovima</p>
-        </div>
+
+        <Link href="/admin/sledeca-epizoda" className={styles.card}>
+          <h2>Upravljanje sledećom epizodom</h2>
+          <p>Postavite datum i informacije o novom gostu za sledeću epizodu</p>
+        </Link>
+
+        <Link href="/admin/gosti" className={styles.card}>
+          <h2>Upravljanje gostima</h2>
+          <p>Menjajte, dodavajte ili obrišite goste podcasta.</p>
+        </Link>
+
+        <Link href="/shop/upravljanje" className={styles.card}>
+          <h2>Upravljanje proizvodima</h2>
+          <p>Menjajte, dodavajte ili obrišite proizvode.</p>
+        </Link>
+
+        <Link href="/admin/popusti" className={styles.card}>
+          <h2>Upravljanje popustima</h2>
+          <p>Menjajte, dodavajte ili obrišite popuste.</p>
+        </Link>
       </main>
     </div>
   );

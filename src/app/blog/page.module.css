@@ -2,7 +2,7 @@
 
 .blogListPage {
   min-height: 100vh;
-  background: var(--bg);
+  background: rgba(7,18,52,1);
   color: #e7eefc;
 }
 

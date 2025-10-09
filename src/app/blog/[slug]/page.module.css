@@ -2,7 +2,7 @@
 
 .blogPage {
   min-height: 100vh;
-  background: var(--bg);
+  background: rgba(7,18,52,1);
   color: #e7eefc;
 }
 
@@ -39,7 +39,7 @@
 /* Article Container */
 .article {
   max-width: 900px;
-  margin: 2rem auto;
+  margin: auto;
   padding: 0 1rem 3rem 1rem;
 }
 

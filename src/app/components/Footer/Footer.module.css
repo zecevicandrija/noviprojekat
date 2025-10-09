@@ -1,5 +1,5 @@
 .footer {
-  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02));
+  background: linear-gradient(rgba(7,18,52,1) 100%);
   border-top: 1px solid rgba(255,255,255,0.05);
   margin-top: auto;
   position: relative;
@@ -189,7 +189,6 @@
 /* Mobile phones (480px i manje) */
 @media (max-width: 480px) {
   .footer {
-    margin-top: 2rem;
     padding-bottom: 4rem;
   }
   

@@ -99,7 +99,7 @@ export default function Navbar() {
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
           <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
-          <Link href="" className={styles.cta}>Shop</Link>
+          <Link href="/shop" className={styles.cta}>Shop</Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -137,11 +137,11 @@ export default function Navbar() {
           </button>
         </div>
         <nav className={styles.mobileNav}>
-          <a href="#epizode" onClick={closeMenu}>Epizode</a>
-          <a href="#blog" onClick={closeMenu}>Blog</a>
-          <a href="#pitanja" onClick={closeMenu}>Pitanja</a>
-          <a href="#kontakt" onClick={closeMenu}>Kontakt</a>
-          <a href="#shop" onClick={closeMenu} className={styles.mobileCta}>Shop</a>
+          <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
+          <Link href="/blog" onClick={closeMenu}>Blog</Link>
+          <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
+          <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
+          <Link href="/shop" className={styles.cta}>Shop</Link>
         </nav>
       </div>
     </>

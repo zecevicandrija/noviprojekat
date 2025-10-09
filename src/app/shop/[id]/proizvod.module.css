@@ -1,0 +1,368 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  font-family: "Bai Jamjuree", sans-serif;
+  color: #e7eefc;
+  padding: 2.5rem 1.25rem;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: #dbeaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.backBtn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2,8,23,0.3);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.imageSection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.lowStockBadge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, rgba(255,152,0,0.95), rgba(251,140,0,0.95));
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255,152,0,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.outOfStockBadge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, rgba(244,67,54,0.95), rgba(211,47,47,0.95));
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(244,67,54,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.productHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.productName {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #e7eefc;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.metaInfo {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #bcd6ff;
+}
+
+.metaItem svg {
+  color: #4aa3ff;
+}
+
+.metaItem strong {
+  color: #e7eefc;
+  font-weight: 700;
+}
+
+.priceSection {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4aa3ff;
+  letter-spacing: -1px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.description h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e7eefc;
+  margin: 0;
+}
+
+.description p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #bcd6ff;
+  margin: 0;
+}
+
+.purchaseSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+
+.quantitySelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quantitySelector label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #bcd6ff;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quantityControls button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(74,163,255,0.1);
+  border: 1px solid rgba(74,163,255,0.3);
+  border-radius: 8px;
+  color: #4aa3ff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantityControls button:hover:not(:disabled) {
+  background: rgba(74,163,255,0.2);
+  transform: scale(1.05);
+}
+
+.quantityControls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quantityControls input {
+  width: 80px;
+  padding: 0.625rem;
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  color: #e7eefc;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.quantityControls input:focus {
+  outline: none;
+  border-color: rgba(74,163,255,0.5);
+  box-shadow: 0 0 0 3px rgba(74,163,255,0.1);
+}
+
+.addToCartBtn {
+  width: 100%;
+  padding: 1rem 1.75rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(30,99,214,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.addToCartBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(30,99,214,0.5);
+}
+
+.addToCartBtn:disabled {
+  background: rgba(255,255,255,0.1);
+  color: #bcd6ff;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.totalPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 1.5rem;
+}
+
+.totalPrice span {
+  color: #bcd6ff;
+  font-weight: 500;
+}
+
+.totalPrice strong {
+  color: #4aa3ff;
+  font-weight: 700;
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 4rem 1.25rem;
+  color: #bcd6ff;
+  font-size: 1.125rem;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .productName {
+    font-size: 1.875rem;
+  }
+
+  .price {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 0.875rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .productName {
+    font-size: 1.5rem;
+  }
+
+  .price {
+    font-size: 1.75rem;
+  }
+
+  .metaInfo {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .metaItem {
+    width: 100%;
+  }
+
+  .addToCartBtn {
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+  }
+
+  .totalPrice {
+    font-size: 1.25rem;
+  }
+}

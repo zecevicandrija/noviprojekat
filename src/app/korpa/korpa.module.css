@@ -1,0 +1,423 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  font-family: "Bai Jamjuree", sans-serif;
+  color: #e7eefc;
+  padding: 2.5rem 1.25rem;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #f6190d;
+  margin: 0;
+  font-weight: 700;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: #dbeaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.empty svg {
+  font-size: 5rem;
+  color: #4aa3ff;
+  opacity: 0.3;
+}
+
+.empty h2 {
+  font-size: 1.75rem;
+  color: #e7eefc;
+  margin: 0;
+}
+
+.shopBtn {
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.shopBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30,99,214,0.4);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+.item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.itemInfo h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #e7eefc;
+  margin: 0;
+}
+
+.price {
+  font-size: 1rem;
+  color: #4aa3ff;
+  font-weight: 600;
+  margin: 0;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+
+.quantity button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(74,163,255,0.1);
+  border: 1px solid rgba(74,163,255,0.3);
+  border-radius: 6px;
+  color: #4aa3ff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantity button:hover {
+  background: rgba(74,163,255,0.2);
+  transform: scale(1.05);
+}
+
+.quantity span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.itemTotal {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e7eefc;
+  min-width: 120px;
+  text-align: right;
+}
+
+.removeBtn {
+  padding: 0.75rem;
+  background: rgba(244,67,54,0.1);
+  border: 1px solid rgba(244,67,54,0.2);
+  border-radius: 8px;
+  color: #ff6b66;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.removeBtn:hover {
+  background: rgba(244,67,54,0.2);
+  transform: scale(1.1);
+}
+
+.summary {
+  position: sticky;
+  top: 2rem;
+  padding: 2rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summary h2 {
+  font-size: 1.5rem;
+  color: #e7eefc;
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.popustSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.popustSection label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #bcd6ff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.popustInput {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.popustInput input {
+  flex: 1;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: #e7eefc;
+  font-size: 0.9rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  text-transform: uppercase;
+}
+
+.popustInput input:focus {
+  outline: none;
+  border-color: rgba(74,163,255,0.5);
+}
+
+.popustInput button {
+  padding: 0.75rem 1.25rem;
+  background: rgba(74,163,255,0.1);
+  border: 1px solid rgba(74,163,255,0.3);
+  border-radius: 8px;
+  color: #4aa3ff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popustInput button:hover:not(:disabled) {
+  background: rgba(74,163,255,0.2);
+}
+
+.popustInput button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.popustApplied {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(76,175,80,0.1);
+  border: 1px solid rgba(76,175,80,0.3);
+  border-radius: 8px;
+}
+
+.popustInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.popustInfo strong {
+  font-size: 1rem;
+  color: #e7eefc;
+}
+
+.popustInfo span {
+  font-size: 0.85rem;
+  color: #bcd6ff;
+}
+
+.popustProcenat {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4aa3ff !important;
+}
+
+.removePopust {
+  padding: 0.5rem 1rem;
+  background: rgba(244,67,54,0.1);
+  border: 1px solid rgba(244,67,54,0.2);
+  border-radius: 6px;
+  color: #ff6b66;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.removePopust:hover {
+  background: rgba(244,67,54,0.2);
+}
+
+.error {
+  color: #ff6b66;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  color: #bcd6ff;
+}
+
+.totalRow span:last-child {
+  font-weight: 600;
+  color: #e7eefc;
+}
+
+.checkoutBtn {
+  width: 100%;
+  padding: 1rem 1.75rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.checkoutBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30,99,214,0.5);
+}
+
+@media (max-width: 968px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem 0.875rem;
+  }
+
+  .item {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .itemInfo {
+    flex-basis: 100%;
+  }
+
+  .quantity {
+    flex: 1;
+  }
+
+  .itemTotal {
+    min-width: auto;
+  }
+
+  .summary {
+    padding: 1.5rem;
+  }
+}

@@ -524,6 +524,17 @@
   transform: translateY(-2px);
 }
 
+.loading {
+  text-align: center;
+  padding: 4rem 1.25rem;
+  color: #bcd6ff;
+  font-size: 1.125rem;
+}
+
+.loading p {
+  margin: 0;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

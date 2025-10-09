@@ -52,7 +52,7 @@ export default function AdminPitanja() {
       await api.delete(`/api/pitanja/${id}`);
       setPitanja(pitanja.filter(p => p.id !== id));
       // Refresh grouped view
-      const groupedResponse = await api.get('/api/pitanja/grouped');
+      const groupedResponse = await api.get('/api/pitanjaGrouped');
       setGroupedPitanja(groupedResponse.data);
     } catch (error) {
       console.error('Error deleting question:', error);

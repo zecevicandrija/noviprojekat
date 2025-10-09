@@ -120,7 +120,7 @@ export default async function BlogPost({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Back Button */}
       <div className={styles.backButtonWrapper}>
@@ -222,7 +222,7 @@ export default async function BlogPost({ params }) {
         </section>
       )}
 
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }

@@ -22,7 +22,7 @@ export default function BlogPage() {
 
   return (
     <main className={styles.blogListPage}>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className={styles.container}>
         {/* Back Button */}
@@ -47,7 +47,7 @@ export default function BlogPage() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }

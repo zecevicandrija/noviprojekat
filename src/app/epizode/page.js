@@ -85,7 +85,7 @@ export default function Epizode() {
 
   return (
     <main className={styles.container}>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <section className={styles.hero}>
         <div className={styles.heroContent}>
@@ -267,7 +267,7 @@ export default function Epizode() {
         )}
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }

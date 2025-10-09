@@ -1,0 +1,557 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.adminPitanja {
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.icon {
+  font-size: 3rem;
+  color: var(--red-100, #f6190d);
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e7eefc;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #bcd6ff;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem 1.25rem;
+  color: #bcd6ff;
+  font-size: 1.125rem;
+}
+
+/* Form wrapper */
+.formWrapper {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(2,8,23,0.3);
+}
+
+/* Sections */
+.section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e7eefc;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sectionIcon {
+  color: var(--blue-600, #1e63d6);
+  font-size: 1.25rem;
+}
+
+/* Input groups */
+.inputGroup {
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #dbeaff;
+  font-size: 0.95rem;
+  margin-bottom: 0.625rem;
+}
+
+.required {
+  color: #ff6b66;
+  font-weight: 700;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  color: #e7eefc;
+  font-size: 1rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: rgba(30,99,214,0.6);
+  box-shadow: 0 0 0 3px rgba(30,99,214,0.1);
+  background: rgba(255,255,255,0.06);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(188,214,255,0.5);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: #bcd6ff;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Image preview */
+.imagePreview {
+  margin-top: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 200px;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.imagePreview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Dostignuća */
+.addBtn {
+  padding: 0.625rem 1.25rem;
+  background: rgba(30,99,214,0.15);
+  border: 1px solid rgba(30,99,214,0.3);
+  border-radius: 10px;
+  color: #4aa3ff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.addBtn:hover {
+  background: rgba(30,99,214,0.25);
+  transform: translateY(-2px);
+}
+
+.dostignuceItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dostignuceItem:last-child {
+  margin-bottom: 0;
+}
+
+.removeBtn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(244,67,54,0.15);
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 8px;
+  color: #ff6b66;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.removeBtn:hover {
+  background: rgba(244,67,54,0.25);
+  transform: scale(1.1);
+}
+
+/* Submit button */
+.submitBtn {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  background: linear-gradient(135deg, var(--blue-600, #1e63d6), #4aa3ff);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  box-shadow: 0 10px 30px rgba(30,99,214,0.3);
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(30,99,214,0.4);
+  background: linear-gradient(135deg, #4aa3ff, var(--blue-600, #1e63d6));
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Messages */
+.message {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.message.success {
+  background: rgba(76, 175, 80, 0.15);
+  color: #b6ffcc;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.message.error {
+  background: rgba(244, 67, 54, 0.15);
+  color: #ffd0d0;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 968px) {
+  .adminPitanja {
+    padding: 3rem 1rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .formWrapper {
+    padding: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .icon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .adminPitanja {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .formWrapper {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .sectionHeader h2 {
+    font-size: 1.25rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .textarea {
+    min-height: 120px;
+  }
+
+  .submitBtn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .icon {
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .addBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .dostignuceItem {
+    gap: 0.5rem;
+  }
+
+  .removeBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .adminPitanja {
+    padding: 2rem 0.5rem;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+
+  .formWrapper {
+    padding: 1.25rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 0.75rem;
+  }
+
+  .submitBtn {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Autocomplete/Search stilovi */
+.guestSelector {
+  margin-bottom: 2rem;
+}
+
+.searchWrapper {
+  position: relative;
+}
+
+.searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  color: #bcd6ff;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 3rem 1rem 2.75rem !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  color: #e7eefc;
+  font-size: 1rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: rgba(30,99,214,0.6);
+  box-shadow: 0 0 0 3px rgba(30,99,214,0.1);
+  background: rgba(255,255,255,0.06);
+}
+
+.clearBtn {
+  position: absolute;
+  right: 1rem;
+  background: rgba(244,67,54,0.15);
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 8px;
+  color: #ff6b66;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.clearBtn:hover {
+  background: rgba(244,67,54,0.25);
+  transform: scale(1.1);
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: rgba(7,18,52,0.98);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(2,8,23,0.6);
+}
+
+.suggestionItem {
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.suggestionItem:hover {
+  background: rgba(30,99,214,0.15);
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionInfo {
+  color: #dbeaff;
+  font-size: 0.95rem;
+}
+
+.suggestionInfo strong {
+  color: #e7eefc;
+}
+
+.suggestionInfo span {
+  color: #bcd6ff;
+  opacity: 0.8;
+}
+
+.selectedInfo,
+.newGuestInfo {
+  margin-top: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selectedInfo {
+  background: rgba(76, 175, 80, 0.15);
+  color: #b6ffcc;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.newGuestInfo {
+  background: rgba(30,99,214,0.15);
+  color: #dbeaff;
+  border: 1px solid rgba(30,99,214,0.3);
+}

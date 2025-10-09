@@ -6,7 +6,7 @@
   --red-600: #d43f3a;
   --red-400: #ff6b66;
   --red-100: #f6190d;
-  --bg: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  --bg: linear-gradient(180deg, 0%, rgba(7,18,52,1) 100%);
   --glass: rgba(255,255,255,0.04);
 }
 
@@ -27,7 +27,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--glass);
+  background: linear-gradient( rgba(7,18,52,1) 100%);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   font-family: "Bai Jamjuree", sans-serif;
@@ -99,7 +99,7 @@
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: rgba(3,12,34,0.98) !important;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%) !important;
   display: flex !important;
   flex-direction: column !important;
   padding: 1rem 2rem !important;

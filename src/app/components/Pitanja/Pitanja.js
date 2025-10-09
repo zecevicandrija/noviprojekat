@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import styles from './Pitanja.module.css'
-import { FaQuestionCircle, FaPaperPlane, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { FaQuestionCircle, FaPaperPlane, FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 import api from '@/app/utils/api'
 
 export default function Pitanja() {
@@ -13,32 +13,34 @@ export default function Pitanja() {
   const [message, setMessage] = useState('')
   const [imageCardHeight, setImageCardHeight] = useState('auto')
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  const [loading, setLoading] = useState(true)
+  const [epizodaData, setEpizodaData] = useState(null)
   
   const formRef = useRef(null)
   const infoRef = useRef(null)
   const guestCardRef = useRef(null)
   const imageCardRef = useRef(null)
 
-  const gost = {
-    ime: "Radomir Borisavljević",
-    pozicija: "Vlasnik KULTUR salona",
-    kompanija: "Privatan biznis",
-    slika: "/Assets/dijalog_high.jpg",
-    opis: "Poznatiji kao Raša, momak 2000. godište koji je svojim primerom pokazao kako mladi mogu da pokrenu svoj biznis. On je pokrenuo frizerski salon KULTUR koji ima 100% - 5 zvezdica na Google Mapama. Raša je neko ko nije ni imao u planu da pokreće svoj biznis, a ni da bude frizer. Međutim njegova priča je neverovatna i pokazuje kako neko ko nema afiniteta ka preduzetništvu i nema nikakve veze, a ni svoje pare - je uspeo. Topla preporuka da ga posetite, a 3 srećna dobitnika koji odgovore... DOBIĆE PO JEDNO ŠIŠANJE BESPLATNO.",
-    dostignuca: [
-      "Kultur frizerski salon (2+ godine)",
-      "5 zvezdica na Google", 
-      "Brojni zadovoljni klijenti"
-    ],
-    socijalniMreza: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://twitter.com", 
-      instagram: "https://instagram.com"
+  // Fetch podataka o sledećoj epizodi
+  useEffect(() => {
+    const fetchEpizodaData = async () => {
+      try {
+        const response = await api.get('/api/sledeceEpizode/sledeca-epizoda')
+        setEpizodaData(response.data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching epizoda data:', error)
+        setLoading(false)
+      }
     }
-  }
+
+    fetchEpizodaData()
+  }, [])
 
   const calculateTimeLeft = () => {
-    const targetDate = new Date('2025-10-10T19:00:00')
+    if (!epizodaData?.datumEpizode) return
+
+    const targetDate = new Date(epizodaData.datumEpizode)
     const now = new Date()
     const difference = targetDate - now
 
@@ -74,13 +76,15 @@ export default function Pitanja() {
   }
 
   useEffect(() => {
+    if (!epizodaData) return
+
     const timer = setInterval(() => {
       calculateTimeLeft()
     }, 1000)
 
     calculateTimeLeft()
     return () => clearInterval(timer)
-  }, [])
+  }, [epizodaData])
 
   useEffect(() => {
     calculateImageCardHeight()
@@ -99,7 +103,7 @@ export default function Pitanja() {
       window.removeEventListener('resize', handleResize)
       clearTimeout(timer)
     }
-  }, [message])
+  }, [message, loading])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -112,7 +116,6 @@ export default function Pitanja() {
     setIsSubmitting(true)
     
     try {
-      // Slanje na backend bez autentifikacije
       const response = await api.post('/api/pitanja', {
         ime: ime.trim() || 'Anonimno',
         pitanje: pitanje.trim()
@@ -123,7 +126,6 @@ export default function Pitanja() {
         setPitanje('')
         setIme('')
         
-        // Skloni poruku nakon 5 sekundi
         setTimeout(() => {
           setMessage('')
         }, 5000)
@@ -135,6 +137,38 @@ export default function Pitanja() {
       setIsSubmitting(false)
     }
   }
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className={styles.pitanja}>
+        <div className={styles.container}>
+          <div className={styles.loading}>
+            <p>Učitavanje...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // No data state
+  if (!epizodaData) {
+    return (
+      <section className={styles.pitanja}>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <FaQuestionCircle className={styles.icon} />
+            <h3 className={styles.title}>Postavite pitanje novom gostu</h3>
+            <p className={styles.subtitle}>
+              Trenutno nema zakazane sledeće epizode. Pratite nas za najnovije vesti!
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const gost = epizodaData.gost
 
   return (
     <section className={styles.pitanja}>
@@ -252,7 +286,7 @@ export default function Pitanja() {
               
               <div className={styles.guestImageContainer}>
                 <Image
-                  src={gost.slika}
+                  src={gost.slika || '/Assets/default-avatar.jpg'}
                   alt={gost.ime}
                   width={120}
                   height={120}
@@ -269,27 +303,40 @@ export default function Pitanja() {
                   <p>{gost.opis}</p>
                 </div>
 
-                <div className={styles.achievements}>
-                  <h6>Ključna dostignuća:</h6>
-                  <ul>
-                    {gost.dostignuca.map((dostignuce, index) => (
-                      <li key={index}>{dostignuce}</li>
-                    ))}
-                  </ul>
-                </div>
+                {gost.dostignuca && gost.dostignuca.length > 0 && (
+                  <div className={styles.achievements}>
+                    <h6>Ključna dostignuća:</h6>
+                    <ul>
+                      {gost.dostignuca.map((dostignuce, index) => (
+                        <li key={index}>{dostignuce}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <div className={styles.socialLinks}>
                   <p>Pratite ga na:</p>
                   <div className={styles.socialIcons}>
-                    <a href={gost.socijalniMreza.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                      <FaLinkedin />
-                    </a>
-                    <a href={gost.socijalniMreza.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                      <FaTwitter />
-                    </a>
-                    <a href={gost.socijalniMreza.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                      <FaInstagram />
-                    </a>
+                    {gost.socijalniMreza.linkedin && (
+                      <a href={gost.socijalniMreza.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <FaLinkedin />
+                      </a>
+                    )}
+                    {gost.socijalniMreza.twitter && (
+                      <a href={gost.socijalniMreza.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <FaTwitter />
+                      </a>
+                    )}
+                    {gost.socijalniMreza.instagram && (
+                      <a href={gost.socijalniMreza.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <FaInstagram />
+                      </a>
+                    )}
+                    {gost.socijalniMreza.youtube && (
+                      <a href={gost.socijalniMreza.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <FaYoutube />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

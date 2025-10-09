@@ -19,7 +19,7 @@ import BlogPreview from './components/BlogPreview/BlogPreview';
 export default function Page() {
   return (
     <main className={styles.container}>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <section className={styles.hero}>
         <div className={styles.heroInner}>
@@ -102,7 +102,7 @@ export default function Page() {
         <BlogPreview />
       </section>
 
-     <Footer />
+     {/* <Footer /> */}
     </main>
   )
 }
