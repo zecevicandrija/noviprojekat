@@ -476,10 +476,6 @@
 /* Prevent fixed shadow bug on iOS */
 @media (max-width: 480px) {
   /* Remove all pseudo elements that might cause shadows */
-  *::before,
-  *::after {
-    box-shadow: none !important;
-  }
   
   .card::before,
   .card::after,
