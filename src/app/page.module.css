@@ -1,7 +1,7 @@
 /* src/app/page.module.css */
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
 /* ===== global element selectors and CSS variables (explicit) ===== */
-:global(:root) {
+/* :global(:root) {
   --blue-900: #052c6b;
   --blue-600: #1e63d6;
   --red-600: #d43f3a;
@@ -29,7 +29,7 @@
 
 /* basic global utilities (optional, explicit) */
 :global(a) { color: inherit; text-decoration: none; }
-:global(button) { font-family: inherit; }
+:global(button) { font-family: inherit; } */
 
 /* ===== local module classes ===== */
 .container {

@@ -92,3 +92,16 @@ button {
   }
 }
 
+/* Navbar global styles */
+body.menu-open {
+  overflow: hidden !important;
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+  .header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(3,12,34,0.95) !important;
+  }
+}

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
 
-:global(:root) {
+/* :global(:root) {
   --blue-900: #052c6b;
   --blue-600: #1e63d6;
   --red-600: #d43f3a;
@@ -18,7 +18,7 @@
 
 :global(body.menu-open) {
   overflow: hidden !important;
-}
+} */
 
 .header {
   top: 0;
