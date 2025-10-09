@@ -12,7 +12,7 @@
 }
 
 /* global html/body height */
-:global(html),
+/* :global(html),
 :global(body),
 :global(#root),
 :global(#__next) {
@@ -28,7 +28,7 @@
 }
 
 /* basic global utilities (optional, explicit) */
-:global(a) { color: inherit; text-decoration: none; }
+/* :global(a) { color: inherit; text-decoration: none; }
 :global(button) { font-family: inherit; } */
 
 /* ===== local module classes ===== */
