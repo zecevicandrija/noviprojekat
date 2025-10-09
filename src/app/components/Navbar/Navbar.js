@@ -95,6 +95,7 @@ export default function Navbar() {
         
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
+          <Link href="/" onClick={closeMenu}>Početna</Link>
           <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
@@ -137,6 +138,7 @@ export default function Navbar() {
           </button>
         </div>
         <nav className={styles.mobileNav}>
+          <Link href="/" onClick={closeMenu}>Početna</Link>
           <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
