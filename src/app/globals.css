@@ -1,8 +1,6 @@
-/* globals.css - zameni postojeći sa ovim */
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   --blue-900: #052c6b;
   --blue-600: #1e63d6;
   --red-600: #d43f3a;
@@ -12,12 +10,10 @@
   --glass: rgba(255,255,255,0.04)
 }
 
-/* Reset and base styles */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  /* Prevent iOS tap highlight */
   font-family: "Bai Jamjuree", sans-serif;
 }
 
