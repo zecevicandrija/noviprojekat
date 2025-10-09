@@ -6,8 +6,13 @@ const app = express();
 
 // CORS - obavezno PRE routes
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
+    origin: [
+        'http://localhost:3000',
+        'https://dijalog.netlify.app',
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
