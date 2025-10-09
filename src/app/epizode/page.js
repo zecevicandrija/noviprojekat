@@ -177,7 +177,7 @@ export default function Epizode() {
             <span className={styles.activeFiltersLabel}>Aktivni filteri:</span>
             {searchQuery && (
               <span className={styles.filterChip}>
-                Pretraga: "{searchQuery}"
+                Pretraga: '{searchQuery}'
                 <button onClick={() => setSearchQuery('')}>
                   <FaTimes />
                 </button>
