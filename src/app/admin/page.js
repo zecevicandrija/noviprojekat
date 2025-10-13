@@ -62,6 +62,11 @@ export default function AdminPanel() {
           <h2>Upravljanje popustima</h2>
           <p>Menjajte, dodavajte ili obrišite popuste.</p>
         </Link>
+
+        <Link href="/admin/statistika" className={styles.card}>
+          <h2>Statistika Transakcija</h2>
+          <p>Uvid u statistiku transakcija preko našeg shop-a.</p>
+        </Link>
       </main>
     </div>
   );

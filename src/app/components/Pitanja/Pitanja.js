@@ -286,7 +286,7 @@ export default function Pitanja() {
               
               <div className={styles.guestImageContainer}>
                 <Image
-                  src={gost.slika || '/Assets/default-avatar.jpg'}
+                  src={gost.slika || '/Assets/dijalog_high.jpg'}
                   alt={gost.ime}
                   width={120}
                   height={120}

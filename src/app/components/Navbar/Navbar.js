@@ -82,7 +82,7 @@ export default function Navbar() {
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.brand}>
+        <Link href="/" className={styles.brand} onClick={closeMenu}>
           <Image 
             src="/Assets/dijalog_high.jpg" 
             alt="Dijalog logo" 
@@ -91,7 +91,7 @@ export default function Navbar() {
             className={styles.logo}
           />
           <h1 className={styles.title}>dijalog</h1>
-        </div>
+        </Link>
         
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
@@ -119,7 +119,7 @@ export default function Navbar() {
       
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileHeader}>
-          <div className={styles.brand}>
+          <Link href="/" className={styles.brand} onClick={closeMenu}>
             <Image 
               src="/Assets/dijalog_high.jpg" 
               alt="Dijalog logo" 
@@ -128,7 +128,7 @@ export default function Navbar() {
               className={styles.logo}
             />
             <h1 className={styles.title}>dijalog</h1>
-          </div>
+          </Link>
           <button 
             className={styles.menuButton}
             onClick={toggleMenu}

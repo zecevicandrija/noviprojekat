@@ -11,7 +11,6 @@ import Footer from './components/Footer/Footer'
 import Navbar from './components/Navbar/Navbar'
 import ContactForms from './components/ContactForms/ContactForms';
 import Multimedia from './components/Multimedia/Multimedia';
-import PlayLatestBtn from "./components/PlayLatestBtn";
 import { FaPlay } from 'react-icons/fa';
 import Pitanja from './components/Pitanja/Pitanja';
 import BlogPreview from './components/BlogPreview/BlogPreview';
@@ -28,12 +27,11 @@ export default function Page() {
             <p className={styles.lead}>Naša ideja je da gledaocima, kroz razgovor sa gostima, prenesemo dobru ili lošu informaciju na adekvatan način kako bi oni sami doneli najbolje zaključke.</p>
 
             <div className={styles.actions}>
-              <button className={styles.playBtn} aria-label="Pusti najnoviju epizodu"><FaPlay className={styles.playIcon} /> Pusti najnoviju</button>
+              <a  href="https://www.youtube.com/@dijalog/videos" target="_blank" className={styles.playBtn} aria-label="Pusti najnoviju epizodu"><FaPlay className={styles.playIcon} /> Pusti najnoviju</a>
               <a href="#newsletter" className={styles.subscribe}>Pretplati se</a>
             </div>
 
             <div className={styles.badges}>
-              <span className={styles.badge}>Spotify</span>
               <span className={styles.badge}>YouTube</span>
             </div>
           </div>

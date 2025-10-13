@@ -1,0 +1,722 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
+  font-family: "Bai Jamjuree", sans-serif;
+  color: #e7eefc;
+  padding: 2.5rem 1.25rem;
+}
+
+.header {
+  max-width: 1400px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: #dbeaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.backBtn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2,8,23,0.3);
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+  color: #f6190d;
+  font-weight: 700;
+}
+
+/* Statistike */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(2,8,23,0.3);
+}
+
+.statIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statNumber {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #e7eefc;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #bcd6ff;
+  opacity: 0.8;
+}
+
+/* Status Stats */
+.statusStats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+}
+
+.statusStatItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #bcd6ff;
+}
+
+.statusStatItem svg {
+  font-size: 1.25rem;
+}
+
+.statusStatItem strong {
+  color: #e7eefc;
+  margin-left: 0.25rem;
+}
+
+/* Filteri */
+.filtersSection {
+  max-width: 1400px;
+  margin: 0 auto 2.5rem auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.filtersSection h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  color: #e7eefc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #bcd6ff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filterGroup input,
+.filterGroup select {
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: #e7eefc;
+  font-size: 0.9rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.filterGroup select option {
+  background: #1a2332;
+  color: #e7eefc;
+  padding: 0.5rem;
+}
+
+.filterGroup input:focus,
+.filterGroup select:focus {
+  outline: none;
+  border-color: rgba(74,163,255,0.5);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 3px rgba(74,163,255,0.1);
+}
+
+.clearBtn {
+  padding: 0.75rem 1.25rem;
+  background: rgba(244,67,54,0.1);
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 10px;
+  color: #ff6b66;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.clearBtn:hover {
+  background: rgba(244,67,54,0.2);
+  transform: translateY(-2px);
+}
+
+/* Transakcije */
+.transakcijeSection {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.transakcijeSection h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  color: #e7eefc;
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #bcd6ff;
+  font-size: 0.95rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table thead {
+  background: rgba(255,255,255,0.03);
+}
+
+.table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #bcd6ff;
+  border-bottom: 2px solid rgba(255,255,255,0.08);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: #e7eefc;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.viewBtn {
+  padding: 0.5rem 1rem;
+  background: rgba(74,163,255,0.1);
+  border: 1px solid rgba(74,163,255,0.3);
+  border-radius: 8px;
+  color: #4aa3ff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.viewBtn:hover {
+  background: rgba(74,163,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3,12,34,0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  background: linear-gradient(180deg, rgba(7,18,52,1) 0%, rgba(3,12,34,1) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #e7eefc;
+  font-weight: 700;
+}
+
+.closeBtn {
+  padding: 0.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: #bcd6ff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  background: rgba(244,67,54,0.1);
+  border-color: rgba(244,67,54,0.3);
+  color: #ff6b66;
+  transform: rotate(90deg);
+}
+
+.modalBody {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4aa3ff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.infoLabel {
+  font-size: 0.8rem;
+  color: #bcd6ff;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.infoValue {
+  font-size: 0.95rem;
+  color: #e7eefc;
+  font-weight: 600;
+}
+
+.proizvodiList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.proizvodItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.proizvodItem:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.proizvodInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.proizvodInfo strong {
+  font-size: 0.95rem;
+  color: #e7eefc;
+}
+
+.proizvodInfo span {
+  font-size: 0.85rem;
+  color: #bcd6ff;
+  opacity: 0.8;
+}
+
+.proizvodCena {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4aa3ff;
+}
+
+.popustInfo {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: rgba(74,163,255,0.05);
+  border: 1px solid rgba(74,163,255,0.2);
+  border-radius: 10px;
+}
+
+.popustInfo span {
+  font-size: 0.9rem;
+  color: #bcd6ff;
+}
+
+.popustInfo strong {
+  color: #4aa3ff;
+  margin-left: 0.25rem;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: rgba(74,163,255,0.05);
+  border: 1px solid rgba(74,163,255,0.2);
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.totalLabel {
+  font-size: 1.1rem;
+  color: #bcd6ff;
+  font-weight: 600;
+}
+
+.totalAmount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #4aa3ff;
+}
+
+.statusControl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.statusControl label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #bcd6ff;
+}
+
+.statusSelect {
+  padding: 0.875rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: #e7eefc;
+  font-size: 0.9rem;
+  font-family: "Bai Jamjuree", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.statusSelect option {
+  background: #1a2332;
+  color: #e7eefc;
+  padding: 0.5rem;
+}
+
+.statusSelect:focus {
+  outline: none;
+  border-color: rgba(74,163,255,0.5);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 3px rgba(74,163,255,0.1);
+}
+
+.dateInfo {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.dateInfo small {
+  font-size: 0.85rem;
+  color: #bcd6ff;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 968px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statusStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filtersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tableWrapper {
+    margin: 0 -2rem;
+    padding: 0 2rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .popustInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .totalRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 0.875rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .filtersSection,
+  .transakcijeSection {
+    padding: 1.5rem;
+  }
+
+  .statCard {
+    padding: 1.25rem;
+  }
+
+  .statIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .statNumber {
+    font-size: 1.5rem;
+  }
+
+  .modalContent {
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .modalHeader,
+  .modalBody {
+    padding: 1.5rem;
+  }
+
+  .tableWrapper {
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .viewBtn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .statusBadge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+  }
+}
+
+/* Scroll bar styling */
+.modalContent::-webkit-scrollbar,
+.tableWrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.modalContent::-webkit-scrollbar-track,
+.tableWrapper::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb,
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: rgba(74,163,255,0.3);
+  border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover,
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(74,163,255,0.5);
+}

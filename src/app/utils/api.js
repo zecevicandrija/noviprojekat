@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://dijalog.undovrbas.com',
+    baseURL: 'https://dijalog.undovrbas.com'
 });
 
 api.interceptors.request.use(

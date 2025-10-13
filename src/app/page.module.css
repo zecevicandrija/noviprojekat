@@ -98,6 +98,7 @@
   border-radius: 10px;
   backdrop-filter: blur(6px);
   cursor: pointer;
+  color: white;
 }
 .playBtn:hover {
   transform: translateY(-3px);

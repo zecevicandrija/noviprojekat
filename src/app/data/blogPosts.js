@@ -112,7 +112,7 @@ Otac Arsenije objašnjava: "Sami stvaramo pakao. Nije Bog stvorio pakao, mi ga s
 
   {
     id: 3,
-    slug: 'umro-duplo-vise-ljudi-od-cigara-nego-od-corona-virusa',
+    slug: 'umrlo-duplo-vise-ljudi-od-cigara-nego-od-corona-virusa',
     title: 'U Srbiji je umrlo duplo više ljudi od cigareta nego od corona virusa',
     excerpt: 'Prema zvaničnim podacima Batuta iz prošle godine, 36% odraslih u Srbiji puši. Pored toga, prema podacima od pre dve godine, svaki 10 učenik starosti od 13-15 godina puši cigarete.',
     content: `Prema zvaničnim podacima Batuta iz prošle godine, 36% odraslih u Srbiji puši. 
