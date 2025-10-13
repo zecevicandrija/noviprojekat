@@ -99,12 +99,8 @@ router.get('/moje', protect, async (req, res) => {
       [req.user.id]
     );
 
-    const formatted = transakcije.map(t => ({
-      ...t,
-      proizvodi: JSON.parse(t.proizvodi)
-    }));
-
-    res.json(formatted);
+    // UKLONI JSON.parse() - MySQL već vraća JSON kao objekat!
+    res.json(transakcije);
   } catch (error) {
     console.error('Error fetching user transactions:', error);
     res.status(500).json({ message: 'Greška na serveru' });
@@ -140,10 +136,8 @@ router.get('/:id', protect, async (req, res) => {
       return res.status(403).json({ message: 'Nemate pristup ovoj transakciji' });
     }
 
-    res.json({
-      ...transakcija,
-      proizvodi: JSON.parse(transakcija.proizvodi)
-    });
+    // UKLONI JSON.parse() - MySQL već vraća JSON kao objekat!
+    res.json(transakcija);
   } catch (error) {
     console.error('Error fetching transaction:', error);
     res.status(500).json({ message: 'Greška na serveru' });
@@ -165,12 +159,8 @@ router.get('/', protect, admin, async (req, res) => {
       ORDER BY t.created_at DESC`
     );
 
-    const formatted = transakcije.map(t => ({
-      ...t,
-      proizvodi: JSON.parse(t.proizvodi)
-    }));
-
-    res.json(formatted);
+    // Samo vrati direktno - MySQL već parsira JSON automatski
+    res.json(transakcije);
   } catch (error) {
     console.error('Error fetching transactions:', error);
     res.status(500).json({ message: 'Greška na serveru' });

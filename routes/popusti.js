@@ -113,4 +113,38 @@ router.delete('/:id', protect, admin, async (req, res) => {
   }
 });
 
+router.put('/:id', protect, admin, async (req, res) => {
+  try {
+    const { kod, procenat, opis, datum_isteka, max_upotreba, aktivan } = req.body;
+    const { id } = req.params;
+    
+    if (!kod || !procenat) {
+      return res.status(400).json({ message: 'Kod i procenat su obavezni' });
+    }
+    
+    await pool.execute(
+      `UPDATE popusti 
+       SET kod = ?, procenat = ?, opis = ?, datum_isteka = ?, max_upotreba = ?, aktivan = ?
+       WHERE id = ?`,
+      [
+        kod.toUpperCase(), 
+        procenat, 
+        opis || null, 
+        datum_isteka || null, 
+        max_upotreba || null,
+        aktivan ? 1 : 0,
+        id
+      ]
+    );
+    
+    res.json({ message: 'Popust uspešno ažuriran' });
+  } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({ message: 'Kod popusta već postoji' });
+    }
+    console.error('Error updating discount:', error);
+    res.status(500).json({ message: 'Greška na serveru' });
+  }
+});
+
 module.exports = router;
