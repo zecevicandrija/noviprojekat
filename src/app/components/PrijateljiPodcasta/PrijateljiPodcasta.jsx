@@ -29,7 +29,7 @@ const PrijateljiPodcasta = () => {
     },
     {
       id: 3,
-      name: "Media House",
+      name: "Partner 3",
       logo: "/Assets/dijalog_high.jpg",
       url: "https://example.com",
       type: "studio",
@@ -38,30 +38,21 @@ const PrijateljiPodcasta = () => {
     },
     {
       id: 4,
-      name: "Creative Co.",
+      name: "Sponzor 1",
       logo: "/Assets/dijalog_high.jpg",
       url: "https://example.com",
       type: "sponzor",
-      description: "Dizajn i brending studio",
+      description: "Dizajn i brending",
       color: "#ff6b66"
     },
     {
       id: 5,
-      name: "Digital Agency",
+      name: "Studio 2",
       logo: "/Assets/dijalog_high.jpg",
       url: "https://example.com",
       type: "studio",
-      description: "Marketing i strategija",
+      description: "Deskripcija za Partnera",
       color: "#1e63d6"
-    },
-    {
-      id: 6,
-      name: "Brand Partner",
-      logo: "/Assets/dijalog_high.jpg",
-      url: "https://example.com",
-      type: "sponzor",
-      description: "Premium brendiranje",
-      color: "#f6190d"
     }
   ];
 
