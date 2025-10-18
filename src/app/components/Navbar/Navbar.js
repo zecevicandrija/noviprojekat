@@ -97,7 +97,9 @@ export default function Navbar() {
         <nav className={styles.nav}>
           <Link href="/" onClick={closeMenu}>Početna</Link>
           <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
+          <Link href="/donacije" onClick={closeMenu}>Donacije</Link>
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
+          <Link href="/biblioteka" onClick={closeMenu}>E-Knjige</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
           <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
           <Link href="/shop" className={styles.cta}>Shop</Link>
@@ -140,7 +142,9 @@ export default function Navbar() {
         <nav className={styles.mobileNav}>
           <Link href="/" onClick={closeMenu}>Početna</Link>
           <Link href="/epizode" onClick={closeMenu}>Epizode</Link>
+          <Link href="/donacije" onClick={closeMenu}>Donacije</Link>
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
+          <Link href="/biblioteka" onClick={closeMenu}>E-Knjige</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
           <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
           <Link href="/shop" className={styles.cta} onClick={closeMenu}>Shop</Link>

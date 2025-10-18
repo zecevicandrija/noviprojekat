@@ -31,12 +31,23 @@ body {
   margin: 0;
   min-height: 100vh;
   color: #e7eefc;
-  background: linear-gradient(180deg, rgba(3,12,34,1) 0%, rgba(7,18,52,1) 100%);
   font-family: "Bai Jamjuree", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   padding-bottom: env(safe-area-inset-bottom);
+  
+  /* Tamniji plavi gradient */
+  background: linear-gradient(180deg, 
+    #000510 0%,
+    #050d1f 15%,
+    #0a1630 35%,
+    #0f2240 55%,
+    #142d50 75%,
+    #1a3860 90%,
+    #204470 100%
+  );
+  background-attachment: fixed;
 }
 
 /* Prevent body scroll when menu is open */

@@ -14,6 +14,9 @@ import Multimedia from './components/Multimedia/Multimedia';
 import { FaPlay } from 'react-icons/fa';
 import Pitanja from './components/Pitanja/Pitanja';
 import BlogPreview from './components/BlogPreview/BlogPreview';
+import PrijateljiPodcasta from './components/PrijateljiPodcasta/PrijateljiPodcasta';
+import DonacijePreview from './components/DonacijePreview/DonacijePreview';
+import BibliotekaPreview from './components/BibliotekaPreview/BibliotekaPreview';
 
 export default function Page() {
   return (
@@ -84,15 +87,21 @@ export default function Page() {
   </div>
 </section>
 
-      <section id="newsletter" className={styles.newsletter}>
-        <div className={styles.newsInner}>
-          <h3>Prijavi se na newsletter</h3>
-          <p>Najnovije epizode, obaveštenja i bonus sadržaj direktno u inbox.</p>
+  
+      <section id="newsletter">
           <NewsletterForm />
-        </div>
       </section>
       <section id='pitanja'><Pitanja /></section>
       <Multimedia />
+      <section id='prijatelji'>
+        <PrijateljiPodcasta />
+      </section>
+      <section id='donacije'>
+        <DonacijePreview />
+      </section>
+      <section id ='biblioteka'>
+        <BibliotekaPreview />
+      </section>
       <section id ='kontakt'>
       <ContactForms />
       </section>

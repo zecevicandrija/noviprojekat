@@ -1,0 +1,476 @@
+.prijateljiSection {
+  padding: 4rem 1rem 5rem 1rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.prijateljiSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(30,99,214,0.08), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0 0 0.75rem 0;
+  background: linear-gradient(135deg, #e7eefc, #6db4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #bcd6ff;
+  margin: 0;
+  font-size: 1.05rem;
+  opacity: 0.9;
+}
+
+/* CAROUSEL */
+.carouselWrapper {
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+}
+
+.card {
+  position: absolute;
+  width: 340px;
+  height: 420px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(2,8,23,0.4);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Pozicije kartica */
+.center {
+  z-index: 3;
+  transform: translateX(0) scale(1) rotateY(0deg);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.left {
+  z-index: 2;
+  transform: translateX(-65%) scale(0.85) rotateY(15deg);
+  opacity: 0.6;
+  filter: brightness(0.7);
+  pointer-events: auto;
+}
+
+.right {
+  z-index: 2;
+  transform: translateX(65%) scale(0.85) rotateY(-15deg);
+  opacity: 0.6;
+  filter: brightness(0.7);
+  pointer-events: auto;
+}
+
+.hidden {
+  z-index: 1;
+  transform: translateX(0) scale(0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hover efekti */
+.center:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateX(0) scale(1.05) rotateY(0deg);
+  box-shadow: 0 30px 80px rgba(2,8,23,0.6);
+}
+
+.left:hover,
+.right:hover {
+  opacity: 0.8;
+  filter: brightness(0.85);
+}
+
+.cardGlow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.center:hover .cardGlow {
+  opacity: 1;
+}
+
+/* Uklonjen kompleksne animacije */
+
+/* Uklonjen kompleksne animacije za bočne kartice */
+
+.cardActive:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateX(0) scale(1.05) rotateY(0deg) !important;
+  box-shadow: 0 30px 80px rgba(2,8,23,0.6);
+}
+
+.logoWrapper {
+  width: 140px;
+  height: 140px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.center:hover .logoWrapper {
+  transform: scale(1.08) rotateZ(3deg);
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardContent {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  gap: 0.5rem;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.4rem 0.9rem;
+  background: var(--accent-color);
+  border-radius: 999px;
+  color: white;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.cardTitle {
+  font-size: 1.35rem;
+  margin: 0;
+  color: #e7eefc;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.cardDesc {
+  font-size: 0.95rem;
+  color: #bcd6ff;
+  margin: 0.5rem 0 0 0;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.cardArrow {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  color: var(--accent-color);
+  z-index: 1;
+}
+
+.center:hover .cardArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* NAVIGATION BUTTONS */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.navButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.navLeft {
+  left: 10px;
+}
+
+.navRight {
+  right: 10px;
+}
+
+/* DOTS INDICATOR */
+.dots {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.dot:hover {
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.2);
+}
+
+.dotActive {
+  background: linear-gradient(90deg, #1e63d6, #4aa3ff);
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* GRID VIEW (backup for small screens) */
+.gridView {
+  display: none;
+}
+
+/* Uklonjen grid prikaz, sada koristimo carousel na svim ekranima */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .card {
+    width: 300px;
+    height: 380px;
+    padding: 1.5rem;
+  }
+
+  .logoWrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cardTitle {
+    font-size: 1.2rem;
+  }
+
+  .cardDesc {
+    font-size: 0.9rem;
+  }
+}
+
+/* MOBILE TRANSITION */
+@media (max-width: 768px) {
+  .prijateljiSection {
+    padding: 3rem 1rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .carouselWrapper {
+    height: 360px;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    width: 280px;
+    height: 340px;
+    padding: 1.25rem;
+  }
+
+  .logoWrapper {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardDesc {
+    font-size: 0.85rem;
+  }
+
+  .navButton {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+
+  .navLeft {
+    left: 5px;
+  }
+
+  .navRight {
+    right: 5px;
+  }
+
+  .dots {
+    margin-bottom: 0;
+  }
+
+  .gridView {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .prijateljiSection {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .carouselWrapper {
+    height: 320px;
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    width: 260px;
+    height: 310px;
+    padding: 1rem;
+  }
+
+  .logoWrapper {
+    width: 90px;
+    height: 90px;
+  }
+
+  .cardTitle {
+    font-size: 1rem;
+  }
+
+  .cardDesc {
+    font-size: 0.8rem;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dotActive {
+    width: 24px;
+  }
+}
+
+/* iOS FIX */
+@supports (-webkit-touch-callout: none) {
+  .carouselWrapper {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .card {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

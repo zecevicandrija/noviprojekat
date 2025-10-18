@@ -132,7 +132,40 @@ O opasnosti pušenja možete pogledati detaljno na video prilogu ispod:
     readTime: '5 min',
     keywords: ['zdravlje', 'ishrana', 'biblija', 'život'],
     category: 'Zdravlje'
-  }
+  },
+  {
+    id: 4,
+    slug: 'nauka-dokazala-da-ljudski-zivot-pocinje-pri-zacecu',
+    title: 'Nauka dokazala da ljudski život počinje kada dođe do začeća i da je svaki abortus ubistvo',
+    excerpt: 'Medicinska nauka jasno potvrđuje da ljudski život počinje pri oplodnji. Svako abortiranje predstavlja prekid ljudskog života.',
+    content: `Svako ko krene da vam priča da je abortiranje tj. čedomorstvo ok jer to zapravo nije ljudski život – ozbiljno greši.
+
+## ŠTA MEDICINSKA NAUKA KAŽE?
+
+Medicinska knjiga pod nazivom "Razvoj čoveka" – Klinički orijentisana embriologija" (The Developing Human – Clinically Oriented Embryology) kaže da:
+
+"Ljudski razvoj počinje pri oplodnji… Ova visoko specijalizovana totipotentna ćelija označava početak svakog od nas kao jedinstvenu individuu."
+
+Ako od matične ćelije nastaju sve ćelije embriona kao i ćelije odraslih uključujući i germinativne ćelije i neembrionske (ekstra-embrionske) strukture koje su povezane sa fetusom kao što je placenta nazivaju se totipotentne.
+
+## EMBRIOLOŠKI DOKAZI
+
+Takođe u knjigi "Before We Are Born" ("Pre nego što se rodimo") piše:
+
+"Embriologija je zabrinuta za poreklo i razvoj ljudskog bića od zigota do rođenja." gde na kraju ove knjige stoji da
+
+"Postoje različita mišljenja o tome kada embrion postaje ljudsko biće zato što su često mišljanja pod uticajem religijskih ili ličnih pogleda na svet. Naučni odgovor je – da je embrion ljudsko biće od začeća zbog svoje hromozomske konstitucije. Zigot je početak razvoja ljudskog bića."
+
+## ZAKLJUČAK
+
+Prema embriologiji naučna je činjenica da ljudski život počinje sa začećem. Tako da abortus iliti čedomorstvo u bilo kom stadijumu ubija ljudsko biće.`,
+    image: '/Assets/abortus2.jpg',
+    date: '2025-10-16',
+    author: 'Dijalog Tim',
+    readTime: '2 min',
+    keywords: ['abortus', 'začeće', 'embriologija', 'ljudski život', 'nauka'],
+    category: 'Nauka i etika'
+}
 ];
 
 // Helper funkcija da dobije najnovije postove
