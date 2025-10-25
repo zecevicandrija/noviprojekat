@@ -31,6 +31,7 @@ const popustiRouter = require('./routes/popusti');
 const transakcijeRouter = require('./routes/transakcije');
 const patreonRouter = require('./routes/patreon');
 const premiumEpizodeRouter = require('./routes/premiumEpizode');
+const knjigeRoutes = require('./routes/knjige');
 
 app.use('/api/auth', authRouter);
 app.use('/api/korisnici', korisniciRouter);
@@ -44,6 +45,7 @@ app.use('/api/popusti', popustiRouter);
 app.use('/api/transakcije', transakcijeRouter);
 app.use('/api/patreon', patreonRouter);
 app.use('/api/premium-epizode', premiumEpizodeRouter);
+app.use('/api/knjige', knjigeRoutes);
 
 
 // Test route
