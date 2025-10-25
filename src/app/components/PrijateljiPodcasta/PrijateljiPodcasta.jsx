@@ -12,7 +12,7 @@ const PrijateljiPodcasta = () => {
     {
       id: 1,
       name: "Kasia Podcast",
-      logo: "/Assets/dijalog_high.jpg",
+      logo: "/Assets/kasia2.png",
       url: "https://kasiapodcast.com",
       type: "studio",
       description: "Profesionalni Podcast Studiji",

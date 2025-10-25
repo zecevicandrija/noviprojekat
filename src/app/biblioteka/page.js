@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import api from '@/app/utils/api';
 import styles from './biblioteka.module.css';
 
 export default function BibliotekaPage() {
@@ -9,63 +10,26 @@ export default function BibliotekaPage() {
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const ebooks = [
-    {
-      id: 1,
-      title: "The Harbinger",
-      author: "Jonathan Cahn",
-      cover: "/Assets/harbinger.jpg",
-      pdfUrl: "https://example.com/book1.pdf",
-      description: "Proročansko upozorenje Americi kroz biblijsku simboliku",
-      color: "#1e63d6"
-    },
-    {
-      id: 2,
-      title: "Biblija",
-      author: "Bog",
-      cover: "/Assets/biblija.jpg",
-      pdfUrl: "https://example.com/book2.pdf",
-      description: "Božija reč i putokaz za život i spasenje",
-      color: "#f6190d"
-    },
-    {
-      id: 3,
-      title: "Sin Hamasa",
-      author: "Mosab Hassan Yousef",
-      cover: "/Assets/sinhamasa.png",
-      pdfUrl: "https://example.com/book3.pdf",
-      description: "Ispovest sina osnivača Hamasa i njegovo obraćenje Hristu",
-      color: "#4aa3ff"
-    },
-    {
-      id: 4,
-      title: "Povratak bogova",
-      author: "Jonathan Cahn",
-      cover: "/Assets/povratak.png",
-      pdfUrl: "https://example.com/book4.pdf",
-      description: "Otkrivanje povratka drevnih paganskih bogova u savremeni svet",
-      color: "#ff6b66"
-    },
-    {
-      id: 5,
-      title: "Knjiga 5",
-      author: "Autor",
-      cover: "/Assets/book5.jpg",
-      pdfUrl: "https://example.com/book5.pdf",
-      description: "Kratka deskripcija knjige",
-      color: "#1e63d6"
-    },
-  ];
+  const [knjige, setKnjige] = useState([]);
 
   useEffect(() => {
     // Proveri da li korisnik već ima pristup (localStorage)
     const storedEmail = localStorage.getItem('biblioteka_email');
     if (storedEmail) {
       setHasAccess(true);
+      fetchKnjige();
     }
     setIsLoading(false);
   }, []);
+
+  const fetchKnjige = async () => {
+    try {
+      const response = await api.get('/api/knjige');
+      setKnjige(response.data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,10 +45,8 @@ export default function BibliotekaPage() {
     // Sačuvaj email u localStorage
     localStorage.setItem('biblioteka_email', email);
     
-    // Ovde možeš dodati API call da sačuvaš email na backend
-    // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
-
     setHasAccess(true);
+    fetchKnjige();
   };
 
   const handleReset = () => {
@@ -152,40 +114,48 @@ export default function BibliotekaPage() {
       </section>
 
       <section className={styles.booksSection}>
-        <div className={styles.booksGrid}>
-          {ebooks.map((book) => (
-            <a
-              key={book.id}
-              href={book.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.bookCard}
-              style={{ '--accent-color': book.color }}
-            >
-              <div className={styles.bookGlow} style={{ background: `radial-gradient(circle at 50% 50%, ${book.color}22, transparent 70%)` }} />
-              
-              <div className={styles.bookCover}>
-                <Image
-                  src={book.cover}
-                  alt={book.title}
-                  width={200}
-                  height={280}
-                  className={styles.coverImage}
-                />
-                <div className={styles.coverOverlay}>
-                  <span className={styles.viewIcon}>📖</span>
+        {knjige.length === 0 ? (
+          <div className={styles.noBooks}>
+            <p>Trenutno nema dostupnih knjiga u biblioteci.</p>
+          </div>
+        ) : (
+          <div className={styles.booksGrid}>
+            {knjige.map((book) => (
+              <a
+                key={book.id}
+                href={book.pdf_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.bookCard}
+              >
+                <div className={styles.bookGlow} />
+                
+                <div className={styles.bookCover}>
+                  <Image
+                    src={book.url_slike}
+                    alt={book.ime}
+                    width={200}
+                    height={280}
+                    className={styles.coverImage}
+                  />
+                  <div className={styles.coverOverlay}>
+                    <span className={styles.viewIcon}>📖</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.bookInfo}>
-                <h3 className={styles.bookTitle}>{book.title}</h3>
-                <p className={styles.bookAuthor}>{book.author}</p>
-                <p className={styles.bookDescription}>{book.description}</p>
-                <span className={styles.downloadBadge}>Preuzmi PDF</span>
-              </div>
-            </a>
-          ))}
-        </div>
+                <div className={styles.bookInfo}>
+                  <h3 className={styles.bookTitle}>{book.ime}</h3>
+                  <p className={styles.bookAuthor}>{book.autor}</p>
+                  {book.kategorija && (
+                    <span className={styles.bookCategory}>{book.kategorija}</span>
+                  )}
+                  <p className={styles.bookDescription}>{book.opis}</p>
+                  <span className={styles.downloadBadge}>Preuzmi PDF</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

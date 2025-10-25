@@ -77,6 +77,11 @@ export default function AdminPanel() {
           <h2>Upravljanje Premium Korisnika</h2>
           <p>Upravljanje i pregled Patreon donatora.</p>
         </Link>
+
+        <Link href="/admin/knjige" className={styles.card}>
+          <h2>Upravljanje Knjigama</h2>
+          <p>Upravljanje i pregled e-knjiga iz biblioteke.</p>
+        </Link>
       </main>
     </div>
   );
