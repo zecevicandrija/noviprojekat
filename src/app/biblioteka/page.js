@@ -47,7 +47,7 @@ export default function BibliotekaPage() {
 
     try {
       // Dodaj email u Resend newsletter
-      const response = await fetch('https://dijalog.undovrbas.com/api/newsletter/subscribe', {
+      const response = await fetch('https://api.dijalogpodcast.com/api/newsletter/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

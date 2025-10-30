@@ -29,7 +29,7 @@ export const metadata = {
   openGraph: {
     title: "Dijalog — Podcast",
     description: "Dijalog podcast — razgovori sa kreativnim ljudima o idejama, pameti i veri.",
-    url: "https://dijalog.netlify.app",
+    url: "https://dijalogpodcast.com",
     siteName: "Dijalog Podcast",
     locale: "sr_RS",
     type: "website",

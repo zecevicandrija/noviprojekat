@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
     title: `${post.title} | Dijalog Blog`,
     description: post.excerpt,
     keywords: post.keywords.join(', '),
-    metadataBase: new URL('https://dijalog.netlify.app'),
+    metadataBase: new URL('https://dijalogpodcast.com'),
     alternates: {
       canonical: `/blog/${slug}`,
     },
@@ -102,13 +102,13 @@ export default async function BlogPost({ params }) {
       name: 'Dijalog Podcast',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://dijalog.netlify.app/logo.png',
+        url: 'https://dijalogpodcast.com/logo.png',
       },
     },
     description: post.excerpt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://dijalog.netlify.app/blog/${slug}`,
+      '@id': `https://dijalogpodcast.com/blog/${slug}`,
     },
   };
 
