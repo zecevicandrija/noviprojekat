@@ -156,7 +156,7 @@ function EpisodesSection() {
     // Učitaj najnovije epizode iz baze
     const fetchEpizode = async () => {
       try {
-        const response = await fetch('https://dijalog.undovrbas.com/api/epizode');
+        const response = await fetch('https://api.dijalogpodcast.com/api/epizode');
         const data = await response.json();
         // Uzmi samo 2 najnovije epizode
         setEpizode(data.slice(0, 2));
@@ -262,7 +262,7 @@ export default function Page() {
     // Učitaj najnoviju epizodu za Hero sekciju
     const fetchNajnovija = async () => {
       try {
-        const response = await fetch('https://dijalog.undovrbas.com/api/epizode');
+        const response = await fetch('https://api.dijalogpodcast.com/api/epizode');
         const data = await response.json();
         if (data.length > 0) {
           setNajnovijaEpizoda(data[0]); // Prva epizoda je najnovija

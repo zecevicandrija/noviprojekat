@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://dijalog.undovrbas.com'
+    baseURL: 'https://api.dijalogpodcast.com'
 });
 
 api.interceptors.request.use(
