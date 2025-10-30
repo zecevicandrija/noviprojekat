@@ -101,8 +101,8 @@ export default function Navbar() {
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/biblioteka" onClick={closeMenu}>E-Knjige</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
-          <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
-          <Link href="/shop" className={styles.cta}>Shop</Link>
+          <Link href="/#kontakt" className={styles.cta}>Kontakt</Link>
+          {/* <Link href="/shop" className={styles.cta}>Shop</Link> */}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -146,8 +146,8 @@ export default function Navbar() {
           <Link href="/blog" onClick={closeMenu}>Blog</Link>
           <Link href="/biblioteka" onClick={closeMenu}>E-Knjige</Link>
           <Link href="/#pitanja" onClick={closeMenu}>Pitanja</Link>
-          <Link href="/#kontakt" onClick={closeMenu}>Kontakt</Link>
-          <Link href="/shop" className={styles.cta} onClick={closeMenu}>Shop</Link>
+          <Link href="/#kontakt" className={styles.cta} onClick={closeMenu}>Kontakt</Link>
+          {/* <Link href="/shop" className={styles.cta} onClick={closeMenu}>Shop</Link> */}
         </nav>
       </div>
     </>

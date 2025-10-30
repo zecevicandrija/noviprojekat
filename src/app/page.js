@@ -84,7 +84,7 @@ function AnimatedSection({ children, animation = 'fade-up', delay = 0 }) {
 }
 
 // Hero sa inline animacijama
-function HeroSection() {
+function HeroSection({ najnovijaEpizoda }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -110,7 +110,13 @@ function HeroSection() {
           </p>
 
           <div className={styles.actions} style={heroItemStyle(400)}>
-            <a href="https://www.youtube.com/@dijalog/videos" target="_blank" className={styles.playBtn} aria-label="Pusti najnoviju epizodu">
+            <a 
+              href={najnovijaEpizoda?.video_url || "https://www.youtube.com/@dijalog/videos"} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.playBtn} 
+              aria-label="Pusti najnoviju epizodu"
+            >
               <FaPlay className={styles.playIcon} /> Pusti najnoviju
             </a>
             <a href="#newsletter" className={styles.subscribe}>Pretplati se</a>
@@ -138,12 +144,49 @@ function HeroSection() {
   );
 }
 
-// Episode kartice sa inline animacijama
+// Episode kartice sa inline animacijama + dinamičko učitavanje iz baze
 function EpisodesSection() {
   const [mounted, setMounted] = useState(false);
+  const [epizode, setEpizode] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 100);
+    
+    // Učitaj najnovije epizode iz baze
+    const fetchEpizode = async () => {
+      try {
+        const response = await fetch('https://dijalog.undovrbas.com/api/epizode');
+        const data = await response.json();
+        // Uzmi samo 2 najnovije epizode
+        setEpizode(data.slice(0, 2));
+      } catch (error) {
+        console.error('Greška pri učitavanju epizoda:', error);
+        // Fallback na hardkodovane epizode ako API ne radi
+        setEpizode([
+          {
+            id: 1,
+            naslov: "dijalog Podcast 107 | DRAGOSLAV BOKAN - Srbi treba da nauče nešto iz istorije ili ćemo propasti",
+            thumbnail_url: "/Assets/dijalogthumb.jpg",
+            video_url: "https://youtu.be/Oq9OgAyInVo?si=UC-pebisjbUrdmLM",
+            trajanje: "2h 18min",
+            datum_objavljivanja: "2025-09-09"
+          },
+          {
+            id: 2,
+            naslov: "dijalog 106 | BARBARA O'NEILL - Božija bašta je najbolja apoteka / God's garden is the best pharmacy",
+            thumbnail_url: "/Assets/ddd.jpg",
+            video_url: "https://youtu.be/bU5tD_yyGww?si=YZmKh5ithiYbpuq6",
+            trajanje: "45min",
+            datum_objavljivanja: "2025-08-18"
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEpizode();
   }, []);
 
   const cardStyle = (delayMs) => ({
@@ -152,54 +195,89 @@ function EpisodesSection() {
     transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${delayMs}ms`,
   });
 
+  // Formatiraj datum u DD.MM.YYYY format
+  const formatDatum = (datum) => {
+    const date = new Date(datum);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}.`;
+  };
+
+  if (loading) {
+    return (
+      <section id="epizode" className={styles.section}>
+        <h3 className={styles.sectionTitle}>Najnovije epizode</h3>
+        <div className={styles.grid}>
+          <p>Učitavanje...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="epizode" className={styles.section}>
       <h3 className={styles.sectionTitle} style={cardStyle(0)}>
         Najnovije epizode
       </h3>
       <div className={styles.grid}>
-        <article className={styles.episodeCard} style={cardStyle(150)}>
-          <a 
-            href="https://youtu.be/Oq9OgAyInVo?si=UC-pebisjbUrdmLM" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.episodeLink}
+        {epizode.map((epizoda, index) => (
+          <article 
+            key={epizoda.id} 
+            className={styles.episodeCard} 
+            style={cardStyle(150 * (index + 1))}
           >
-            <div className={styles.thumb}>
-              <Image src="/Assets/dijalogthumb.jpg" alt="Epizoda 1" width={320} height={180} />
-            </div>
-            <div className={styles.epContent}>
-              <h4>dijalog Podcast 107 | DRAGOSLAV BOKAN - Srbi treba da nauče nešto iz istorije ili ćemo propasti</h4>
-              <p className={styles.epMeta}>2h 18min • 09.09.2025.</p>
-            </div>
-          </a>
-        </article>
-
-        <article className={styles.episodeCard} style={cardStyle(300)}>
-          <a 
-            href="https://youtu.be/bU5tD_yyGww?si=YZmKh5ithiYbpuq6" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.episodeLink}
-          >
-            <div className={styles.thumb}>
-              <Image src="/Assets/ddd.jpg" alt="Epizoda 2" width={320} height={180} />
-            </div>
-            <div className={styles.epContent}>
-              <h4>{`dijalog 106 | BARBARA O'NEILL - Božija bašta je najbolja apoteka / God's garden is the best pharmacy`}</h4>
-              <p className={styles.epMeta}>45min • 18.08.2025.</p>
-            </div>
-          </a>
-        </article>
+            <a 
+              href={epizoda.video_url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.episodeLink}
+            >
+              <div className={styles.thumb}>
+                <Image 
+                  src={epizoda.thumbnail_url} 
+                  alt={epizoda.naslov} 
+                  width={320} 
+                  height={180} 
+                />
+              </div>
+              <div className={styles.epContent}>
+                <h4>{epizoda.naslov}</h4>
+                <p className={styles.epMeta}>
+                  {epizoda.trajanje} • {formatDatum(epizoda.datum_objavljivanja)}
+                </p>
+              </div>
+            </a>
+          </article>
+        ))}
       </div>
     </section>
   );
 }
 
 export default function Page() {
+  const [najnovijaEpizoda, setNajnovijaEpizoda] = useState(null);
+
+  useEffect(() => {
+    // Učitaj najnoviju epizodu za Hero sekciju
+    const fetchNajnovija = async () => {
+      try {
+        const response = await fetch('https://dijalog.undovrbas.com/api/epizode');
+        const data = await response.json();
+        if (data.length > 0) {
+          setNajnovijaEpizoda(data[0]); // Prva epizoda je najnovija
+        }
+      } catch (error) {
+        console.error('Greška pri učitavanju najnovije epizode:', error);
+      }
+    };
+
+    fetchNajnovija();
+  }, []);
+
   return (
     <main className={styles.container}>
-      <HeroSection />
+      <HeroSection najnovijaEpizoda={najnovijaEpizoda} />
 
       <AnimatedSection animation="fade-up" delay={0}>
         <EpisodesSection />

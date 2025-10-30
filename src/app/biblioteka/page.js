@@ -9,6 +9,7 @@ export default function BibliotekaPage() {
   const [email, setEmail] = useState('');
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [knjige, setKnjige] = useState([]);
 
@@ -34,19 +35,53 @@ export default function BibliotekaPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
 
     // Validacija email-a
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Molimo unesite validnu email adresu');
+      setIsSubmitting(false);
       return;
     }
 
-    // Sačuvaj email u localStorage
-    localStorage.setItem('biblioteka_email', email);
-    
-    setHasAccess(true);
-    fetchKnjige();
+    try {
+      // Dodaj email u Resend newsletter
+      const response = await fetch('https://dijalog.undovrbas.com/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Uspešno dodat u newsletter
+        console.log('Email dodat u newsletter:', data.message);
+        
+        // Sačuvaj email u localStorage
+        localStorage.setItem('biblioteka_email', email);
+        
+        setHasAccess(true);
+        fetchKnjige();
+      } else {
+        // Čak i ako je već prijavljen, dozvoli pristup
+        if (data.message && data.message.includes('Već si prijavljen')) {
+          localStorage.setItem('biblioteka_email', email);
+          setHasAccess(true);
+          fetchKnjige();
+        } else {
+          setError(data.message || 'Greška pri prijavi. Pokušajte ponovo.');
+        }
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setError('Greška pri povezivanju sa serverom. Pokušajte ponovo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -81,17 +116,22 @@ export default function BibliotekaPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="vaš@email.com"
                 className={styles.gateInput}
+                disabled={isSubmitting}
                 required
               />
-              <button type="submit" className={styles.gateButton}>
-                Pristup Biblioteci
+              <button 
+                type="submit" 
+                className={styles.gateButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Prijavljujem...' : 'Pristup Biblioteci'}
               </button>
             </form>
 
             {error && <p className={styles.error}>{error}</p>}
 
             <p className={styles.gateNote}>
-              💡 Vaša email adresa će biti sačuvana i nećete morati ponovo da je unosite
+              💡 Vaša email adresa će biti sačuvana i automatski ćete biti prijavljeni na naš newsletter
             </p>
           </div>
         </div>

@@ -8,10 +8,14 @@ import { FaEnvelope, FaPaperPlane, FaBell } from 'react-icons/fa';
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return setStatus({ ok: false, msg: 'Unesi email' });
+    
+    if (!email) {
+      return setStatus({ ok: false, msg: 'Unesi email' });
+    }
     
     // Validacija email-a
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,20 +23,39 @@ export default function NewsletterForm() {
       return setStatus({ ok: false, msg: 'Unesite validnu email adresu' });
     }
 
+    if (isSubmitting) return; // Sprečava duplicate submits
+
     try {
+      setIsSubmitting(true);
       setStatus({ ok: null, msg: 'Slanje...' });
       
-      // Ovde dodaj API call za newsletter
-      // await fetch('/api/newsletter', { method: 'POST', body: JSON.stringify({ email }) });
-      
-      await new Promise((r) => setTimeout(r, 1000));
-      setEmail('');
-      setStatus({ ok: true, msg: 'Uspešno si se prijavio! 🎉' });
+      // API call ka backendu
+      const response = await fetch('https://dijalog.undovrbas.com/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setEmail('');
+        setStatus({ ok: true, msg: data.message || 'Uspešno si se prijavio! 🎉' });
+      } else {
+        setStatus({ ok: false, msg: data.message || 'Greška prilikom prijave.' });
+      }
       
       // Reset status nakon 5 sekundi
       setTimeout(() => setStatus(null), 5000);
-    } catch {
+      
+    } catch (error) {
+      console.error('Newsletter error:', error);
       setStatus({ ok: false, msg: 'Greška prilikom prijave. Pokušaj ponovo.' });
+      setTimeout(() => setStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,12 +103,17 @@ export default function NewsletterForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={styles.input}
+                  disabled={isSubmitting}
                   required
                 />
               </div>
               
-              <button type="submit" className={styles.submitBtn}>
-                <span>Prijavi se</span>
+              <button 
+                type="submit" 
+                className={styles.submitBtn}
+                disabled={isSubmitting}
+              >
+                <span>{isSubmitting ? 'Šaljem...' : 'Prijavi se'}</span>
                 <FaPaperPlane className={styles.planeIcon} />
               </button>
             </form>
