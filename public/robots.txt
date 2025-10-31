@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Blokiraj admin stranice
+Disallow: /admin/
+Disallow: /shop/upravljanje/
+
+# Blokiraj privatne API endpointe ako postoje
+Disallow: /api/admin/
+
+# Blokiraj korpu i login (nisu korisne za SEO)
+Disallow: /korpa
+Disallow: /login
+Disallow: /podaci
+
+# Dozvoli važne resurse
+Allow: /Assets/
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap lokacija
+Sitemap: https://www.dijalogpodcast.com/sitemap.xml

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import styles from './ContactForms.module.css'
+import api from '@/app/utils/api'
 
 export default function ContactForms() {
   const [activeForm, setActiveForm] = useState('general')
@@ -27,18 +28,45 @@ export default function ContactForms() {
     setStatus({ type: 'loading', message: 'Slanje...' })
     
     try {
-      // Simulacija slanja podataka
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      setStatus({ type: 'success', message: 'Poruka je uspešno poslata!' })
+      let endpoint = ''
+      let data = {}
+
+      // Odaberi endpoint i podatke na osnovu aktivne forme
+      if (activeForm === 'general') {
+        endpoint = '/api/email/general'
+        data = formData.general
+      } else if (activeForm === 'sponsorship') {
+        endpoint = '/api/email/sponsorship'
+        data = formData.sponsorship
+      } else if (activeForm === 'guest') {
+        endpoint = '/api/email/guest'
+        data = formData.guest
+      }
+
+      // Pošalji podatke na backend
+      const response = await api.post(endpoint, data)
       
-      // Reset forme
-      setFormData({
-        general: { name: '', email: '', question: '' },
-        sponsorship: { name: '', email: '', offer: '' },
-        guest: { name: '', email: '', about: '', reason: '' }
-      })
+      setStatus({ type: 'success', message: response.data.message })
+      
+      // Reset forme nakon 3 sekunde
+      setTimeout(() => {
+        setFormData({
+          general: { name: '', email: '', question: '' },
+          sponsorship: { name: '', email: '', offer: '' },
+          guest: { name: '', email: '', about: '', reason: '' }
+        })
+        setStatus(null)
+      }, 3000)
+
     } catch (error) {
-      setStatus({ type: 'error', message: 'Došlo je do greške. Pokušajte ponovo.' })
+      console.error('Error:', error)
+      const errorMessage = error.response?.data?.message || 'Došlo je do greške. Pokušajte ponovo.'
+      setStatus({ type: 'error', message: errorMessage })
+      
+      // Ukloni error nakon 5 sekundi
+      setTimeout(() => {
+        setStatus(null)
+      }, 5000)
     }
   }
 
@@ -54,6 +82,7 @@ export default function ContactForms() {
                 value={formData.general.name}
                 onChange={(e) => handleInputChange('general', 'name', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -63,6 +92,7 @@ export default function ContactForms() {
                 value={formData.general.email}
                 onChange={(e) => handleInputChange('general', 'email', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -72,9 +102,16 @@ export default function ContactForms() {
                 value={formData.general.question}
                 onChange={(e) => handleInputChange('general', 'question', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               ></textarea>
             </div>
-            <button type="submit" className={styles.submitBtn}>Pošalji poruku</button>
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={status?.type === 'loading'}
+            >
+              {status?.type === 'loading' ? 'Šaljem...' : 'Pošalji poruku'}
+            </button>
           </form>
         )
 
@@ -88,6 +125,7 @@ export default function ContactForms() {
                 value={formData.sponsorship.name}
                 onChange={(e) => handleInputChange('sponsorship', 'name', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -97,6 +135,7 @@ export default function ContactForms() {
                 value={formData.sponsorship.email}
                 onChange={(e) => handleInputChange('sponsorship', 'email', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -106,9 +145,16 @@ export default function ContactForms() {
                 value={formData.sponsorship.offer}
                 onChange={(e) => handleInputChange('sponsorship', 'offer', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               ></textarea>
             </div>
-            <button type="submit" className={styles.submitBtn}>Pošalji ponudu</button>
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={status?.type === 'loading'}
+            >
+              {status?.type === 'loading' ? 'Šaljem...' : 'Pošalji ponudu'}
+            </button>
           </form>
         )
 
@@ -122,6 +168,7 @@ export default function ContactForms() {
                 value={formData.guest.name}
                 onChange={(e) => handleInputChange('guest', 'name', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -131,6 +178,7 @@ export default function ContactForms() {
                 value={formData.guest.email}
                 onChange={(e) => handleInputChange('guest', 'email', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               />
             </div>
             <div className={styles.formGroup}>
@@ -140,6 +188,7 @@ export default function ContactForms() {
                 value={formData.guest.about}
                 onChange={(e) => handleInputChange('guest', 'about', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               ></textarea>
             </div>
             <div className={styles.formGroup}>
@@ -149,9 +198,16 @@ export default function ContactForms() {
                 value={formData.guest.reason}
                 onChange={(e) => handleInputChange('guest', 'reason', e.target.value)}
                 required
+                disabled={status?.type === 'loading'}
               ></textarea>
             </div>
-            <button type="submit" className={styles.submitBtn}>Pošalji prijavu</button>
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={status?.type === 'loading'}
+            >
+              {status?.type === 'loading' ? 'Šaljem...' : 'Pošalji prijavu'}
+            </button>
           </form>
         )
 
@@ -169,18 +225,21 @@ export default function ContactForms() {
           <button
             className={`${styles.tabButton} ${activeForm === 'general' ? styles.active : ''}`}
             onClick={() => setActiveForm('general')}
+            disabled={status?.type === 'loading'}
           >
             Generalno
           </button>
           <button
             className={`${styles.tabButton} ${activeForm === 'sponsorship' ? styles.active : ''}`}
             onClick={() => setActiveForm('sponsorship')}
+            disabled={status?.type === 'loading'}
           >
             Saradnja/Sponzorstvo
           </button>
           <button
             className={`${styles.tabButton} ${activeForm === 'guest' ? styles.active : ''}`}
             onClick={() => setActiveForm('guest')}
+            disabled={status?.type === 'loading'}
           >
             Gostovanje
           </button>
