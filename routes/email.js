@@ -18,7 +18,7 @@ router.post('/general', async (req, res) => {
     }
 
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'noreply@dijalogpodcast.com',
       to: 'zecevic144@gmail.com',
       replyTo: email,
       subject: `[Generalno pitanje] ${name}`,
@@ -57,7 +57,7 @@ router.post('/sponsorship', async (req, res) => {
     }
 
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'noreply@dijalogpodcast.com',
       to: 'zecevic144@gmail.com',
       replyTo: email,
       subject: `[Saradnja/Sponzorstvo] ${name}`,
@@ -96,7 +96,7 @@ router.post('/guest', async (req, res) => {
     }
 
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'noreply@dijalogpodcast.com',
       to: 'zecevic144@gmail.com',
       replyTo: email,
       subject: `[Prijava za gostovanje] ${name}`,
