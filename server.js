@@ -9,6 +9,7 @@ app.use(cors({
     origin: [
         'http://localhost:3000',
         'https://dijalogpodcast.com',
+        'https://www.dijalogpodcast.com',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -33,6 +34,7 @@ const patreonRouter = require('./routes/patreon');
 const premiumEpizodeRouter = require('./routes/premiumEpizode');
 const knjigeRoutes = require('./routes/knjige');
 const newsletterRouter = require('./routes/newsletter');
+const emailRouter = require('./routes/email');
 
 app.use('/api/auth', authRouter);
 app.use('/api/korisnici', korisniciRouter);
@@ -48,6 +50,7 @@ app.use('/api/patreon', patreonRouter);
 app.use('/api/premium-epizode', premiumEpizodeRouter);
 app.use('/api/knjige', knjigeRoutes);
 app.use('/api/newsletter', newsletterRouter);
+app.use('/api/email', emailRouter);
 
 
 // Test route
