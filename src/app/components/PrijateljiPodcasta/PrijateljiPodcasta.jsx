@@ -29,30 +29,30 @@ const PrijateljiPodcasta = () => {
     },
     {
       id: 3,
-      name: "Partner 3",
-      logo: "/Assets/dijalog_high.jpg",
-      url: "https://example.com",
-      type: "studio",
-      description: "Kreativni sadržaj i video produkcija",
-      color: "#4aa3ff"
+      name: "Fisherman's Friend",
+      logo: "/Assets/fflogo.png",
+      url: "https://www.instagram.com/fishermansfriend_rs/",
+      type: "sponzor",
+      description: "Kompanija u industriji hrane i pića",
+      color: "#228e3bff"
     },
     {
       id: 4,
-      name: "Sponzor 1",
-      logo: "/Assets/dijalog_high.jpg",
-      url: "https://example.com",
+      name: "Institut za prirodnu kozmetiku",
+      logo: "/Assets/institut.png",
+      url: "https://institutzaprirodnukozmetiku.com/",
       type: "sponzor",
-      description: "Dizajn i brending",
-      color: "#ff6b66"
+      description: "Najbolja prirodna kozmetika na svetu",
+      color: "#228e3bff"
     },
     {
       id: 5,
-      name: "Studio 2",
-      logo: "/Assets/dijalog_high.jpg",
-      url: "https://example.com",
-      type: "studio",
-      description: "Deskripcija za Partnera",
-      color: "#1e63d6"
+      name: "Glina kozmetika",
+      logo: "/Assets/glinaa.png",
+      url: "https://glinakozmetika.rs/",
+      type: "sponzor",
+      description: "Prirodna kozmetika od gline i lekovitih biljaka",
+      color: "#228e3bff"
     }
   ];
 
