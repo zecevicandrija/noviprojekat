@@ -158,6 +158,8 @@
   text-align: center;
   position: relative;
   z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .heroContent {
@@ -198,16 +200,246 @@
   transform: translateY(-2px);
 }
 
-/* BOOKS SECTION */
-.booksSection {
-  padding: 2rem 0;
+/* FILTERS SECTION */
+.filtersSection {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
   position: relative;
   z-index: 1;
 }
 
-.booksGrid {
+.filtersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* Search Bar */
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bcd6ff;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 2.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #e7eefc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: rgba(30,99,214,0.5);
+  background: rgba(255,255,255,0.06);
+}
+
+.searchInput::placeholder {
+  color: rgba(188,214,255,0.5);
+}
+
+.clearSearchBtn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.5rem;
+  background: rgba(244,67,54,0.1);
+  border: none;
+  border-radius: 8px;
+  color: #ff6b66;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearSearchBtn:hover {
+  background: rgba(244,67,54,0.2);
+}
+
+/* Category Filter */
+.categoryFilterWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filterLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #bcd6ff;
+  white-space: nowrap;
+}
+
+.categorySelect {
+  padding: 0.875rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #e7eefc;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.categorySelect:focus {
+  outline: none;
+  border-color: rgba(30,99,214,0.5);
+  background: rgba(255,255,255,0.06);
+}
+
+.categorySelect option {
+  background: rgba(7,18,52,1);
+  color: #e7eefc;
+  padding: 0.5rem;
+}
+
+/* Clear Filters Button */
+.clearFiltersBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(244,67,54,0.1);
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 12px;
+  color: #ff6b66;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.clearFiltersBtn:hover {
+  background: rgba(244,67,54,0.2);
+  transform: translateY(-2px);
+}
+
+/* Active Filters Display */
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(30,99,214,0.05);
+  border: 1px solid rgba(30,99,214,0.15);
+  border-radius: 12px;
+}
+
+.activeFiltersLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4aa3ff;
+}
+
+.filterChip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: rgba(30,99,214,0.15);
+  border: 1px solid rgba(30,99,214,0.3);
+  border-radius: 20px;
+  color: #dbeaff;
+  font-size: 0.875rem;
+}
+
+.filterChip button {
+  padding: 0.125rem;
+  background: rgba(244,67,54,0.2);
+  border: none;
+  border-radius: 50%;
+  color: #ff6b66;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transition: all 0.2s ease;
+}
+
+.filterChip button:hover {
+  background: rgba(244,67,54,0.4);
+  transform: scale(1.1);
+}
+
+/* Results Count */
+.resultsCount {
+  font-size: 0.95rem;
+  color: #bcd6ff;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* BOOKS SECTION */
+.booksSection {
+  padding: 0;
+  position: relative;
+  z-index: 1;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.noBooks {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #bcd6ff;
+  font-size: 1.125rem;
+}
+
+.noBooks p {
+  font-size: 1.25rem;
+  margin: 0 0 1rem 0;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #1e63d6, #4aa3ff);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.emptyBtn:hover {
+  transform: translateY(-2px);
+}
+
+.booksGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
@@ -320,6 +552,19 @@
   font-weight: 500;
 }
 
+.bookCategory {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background: rgba(30,99,214,0.15);
+  border: 1px solid rgba(30,99,214,0.3);
+  border-radius: 16px;
+  color: #4aa3ff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  align-self: flex-start;
+}
+
 .bookDescription {
   font-size: 0.9rem;
   color: #bcd6ff;
@@ -347,6 +592,41 @@
 }
 
 /* RESPONSIVE */
+@media (max-width: 968px) {
+  .filtersContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchWrapper {
+    min-width: 100%;
+  }
+
+  .categoryFilterWrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .categorySelect {
+    flex: 1;
+  }
+
+  .clearFiltersBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .activeFilters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .booksGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
@@ -426,8 +706,21 @@
     font-size: 3rem;
   }
 
+  .filtersSection {
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filtersContainer {
+    padding: 1.25rem;
+  }
+
+  .categorySelect {
+    min-width: 50%;
+  }
+
   .booksSection {
-    padding: 1rem 0;
+    padding: 0;
   }
 
   .booksGrid {
@@ -454,6 +747,12 @@
 
   .bookAuthor {
     font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bookCategory {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
     margin-bottom: 0.5rem;
   }
 
@@ -506,10 +805,13 @@
 @supports (-webkit-touch-callout: none) {
   .container,
   .gateCard,
-  .bookCard {
+  .bookCard,
+  .filtersContainer {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    backdrop-filter: none;
+    background: rgba(255,255,255,0.05);
   }
 }

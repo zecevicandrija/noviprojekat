@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import api from '@/app/utils/api';
 import styles from './biblioteka.module.css';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 
 export default function BibliotekaPage() {
   const [email, setEmail] = useState('');
@@ -12,6 +13,9 @@ export default function BibliotekaPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [knjige, setKnjige] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     // Proveri da li korisnik već ima pristup (localStorage)
@@ -27,6 +31,15 @@ export default function BibliotekaPage() {
     try {
       const response = await api.get('/api/knjige');
       setKnjige(response.data);
+      
+      // Izvuci jedinstvene kategorije
+      const uniqueCategories = [...new Set(
+        response.data
+          .map(book => book.kategorija)
+          .filter(cat => cat && cat.trim() !== '')
+      )].sort();
+      
+      setCategories(uniqueCategories);
     } catch (error) {
       console.error('Error fetching books:', error);
     }
@@ -89,6 +102,34 @@ export default function BibliotekaPage() {
     setHasAccess(false);
     setEmail('');
   };
+
+  const getFilteredKnjige = () => {
+    let filtered = [...knjige];
+    
+    // Filter po pretrazi (ime knjige ili autor)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(book => 
+        book.ime.toLowerCase().includes(query) ||
+        book.autor.toLowerCase().includes(query)
+      );
+    }
+    
+    // Filter po kategoriji
+    if (selectedCategory) {
+      filtered = filtered.filter(book => book.kategorija === selectedCategory);
+    }
+    
+    return filtered;
+  };
+
+  const handleClearFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory('');
+  };
+
+  const filteredKnjige = getFilteredKnjige();
+  const hasActiveFilters = searchQuery.trim() || selectedCategory;
 
   if (isLoading) {
     return (
@@ -153,48 +194,141 @@ export default function BibliotekaPage() {
         </div>
       </section>
 
+      {/* Filters Section */}
+      <section className={styles.filtersSection}>
+        <div className={styles.filtersContainer}>
+          
+          {/* Search Bar */}
+          <div className={styles.searchWrapper}>
+            <FaSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="Pretraži po naslovu ili autoru..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className={styles.clearSearchBtn}
+              >
+                <FaTimes />
+              </button>
+            )}
+          </div>
+
+          {/* Category Filter */}
+          {categories.length > 0 && (
+            <div className={styles.categoryFilterWrapper}>
+              <label className={styles.filterLabel}>Kategorija:</label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className={styles.categorySelect}
+              >
+                <option value="">Sve kategorije</option>
+                {categories.map((category, index) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Clear Filters */}
+          {hasActiveFilters && (
+            <button 
+              onClick={handleClearFilters}
+              className={styles.clearFiltersBtn}
+            >
+              <FaTimes /> Obriši filtere
+            </button>
+          )}
+        </div>
+
+        {/* Active Filters Display */}
+        {hasActiveFilters && (
+          <div className={styles.activeFilters}>
+            <span className={styles.activeFiltersLabel}>Aktivni filteri:</span>
+            {searchQuery && (
+              <span className={styles.filterChip}>
+                Pretraga: '{searchQuery}'
+                <button onClick={() => setSearchQuery('')}>
+                  <FaTimes />
+                </button>
+              </span>
+            )}
+            {selectedCategory && (
+              <span className={styles.filterChip}>
+                Kategorija: {selectedCategory}
+                <button onClick={() => setSelectedCategory('')}>
+                  <FaTimes />
+                </button>
+              </span>
+            )}
+          </div>
+        )}
+      </section>
+
       <section className={styles.booksSection}>
-        {knjige.length === 0 ? (
+        {filteredKnjige.length === 0 ? (
           <div className={styles.noBooks}>
-            <p>Trenutno nema dostupnih knjiga u biblioteci.</p>
+            <p>
+              {hasActiveFilters 
+                ? 'Nema knjiga koje odgovaraju vašoj pretrazi.'
+                : 'Trenutno nema dostupnih knjiga u biblioteci.'
+              }
+            </p>
+            {hasActiveFilters && (
+              <button onClick={handleClearFilters} className={styles.emptyBtn}>
+                Obriši filtere
+              </button>
+            )}
           </div>
         ) : (
-          <div className={styles.booksGrid}>
-            {knjige.map((book) => (
-              <a
-                key={book.id}
-                href={book.pdf_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.bookCard}
-              >
-                <div className={styles.bookGlow} />
-                
-                <div className={styles.bookCover}>
-                  <Image
-                    src={book.url_slike}
-                    alt={book.ime}
-                    width={200}
-                    height={280}
-                    className={styles.coverImage}
-                  />
-                  <div className={styles.coverOverlay}>
-                    <span className={styles.viewIcon}>📖</span>
+          <>
+            <div className={styles.resultsCount}>
+              Pronađeno {filteredKnjige.length} {filteredKnjige.length === 1 ? 'knjiga' : filteredKnjige.length < 5 ? 'knjige' : 'knjiga'}
+            </div>
+            <div className={styles.booksGrid}>
+              {filteredKnjige.map((book) => (
+                <a
+                  key={book.id}
+                  href={book.pdf_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.bookCard}
+                >
+                  <div className={styles.bookGlow} />
+                  
+                  <div className={styles.bookCover}>
+                    <Image
+                      src={book.url_slike}
+                      alt={book.ime}
+                      width={200}
+                      height={280}
+                      className={styles.coverImage}
+                    />
+                    <div className={styles.coverOverlay}>
+                      <span className={styles.viewIcon}>📖</span>
+                    </div>
                   </div>
-                </div>
 
-                <div className={styles.bookInfo}>
-                  <h3 className={styles.bookTitle}>{book.ime}</h3>
-                  <p className={styles.bookAuthor}>{book.autor}</p>
-                  {book.kategorija && (
-                    <span className={styles.bookCategory}>{book.kategorija}</span>
-                  )}
-                  <p className={styles.bookDescription}>{book.opis}</p>
-                  <span className={styles.downloadBadge}>Preuzmi PDF</span>
-                </div>
-              </a>
-            ))}
-          </div>
+                  <div className={styles.bookInfo}>
+                    <h3 className={styles.bookTitle}>{book.ime}</h3>
+                    <p className={styles.bookAuthor}>{book.autor}</p>
+                    {book.kategorija && (
+                      <span className={styles.bookCategory}>{book.kategorija}</span>
+                    )}
+                    <p className={styles.bookDescription}>{book.opis}</p>
+                    <span className={styles.downloadBadge}>Preuzmi PDF</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </>
         )}
       </section>
     </main>
