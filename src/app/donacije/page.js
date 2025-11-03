@@ -10,9 +10,11 @@ export default function DonacijePage() {
   const [email, setEmail] = useState('');
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [premiumEpizode, setPremiumEpizode] = useState([]);
   const [datumIsteka, setDatumIsteka] = useState(null);
+  const [patreonName, setPatreonName] = useState('');
 
   useEffect(() => {
     // Proveri localStorage
@@ -40,6 +42,7 @@ export default function DonacijePage() {
         setHasAccess(true);
         setEmail(emailToVerify);
         setDatumIsteka(verifyData.datum_isteka);
+        setPatreonName(verifyData.patreon_name || '');
         localStorage.setItem('patreon_email', emailToVerify);
 
         // Učitaj premium epizode
@@ -51,7 +54,12 @@ export default function DonacijePage() {
       }
     } catch (err) {
       console.error('Verify error:', err);
-      setError('Greška pri proveri pristupa');
+      if (err.response?.status === 403) {
+        setError(err.response.data.message || 'Nemate pristup. Podržite nas na Patreon-u!');
+      } else {
+        setError('Greška pri proveri pristupa. Pokušajte ponovo.');
+      }
+      localStorage.removeItem('patreon_email');
     } finally {
       setIsLoading(false);
     }
@@ -60,14 +68,17 @@ export default function DonacijePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Molimo unesite validnu email adresu');
+      setIsSubmitting(false);
       return;
     }
 
-    verifyAccess(email);
+    await verifyAccess(email);
+    setIsSubmitting(false);
   };
 
   const handleLogout = () => {
@@ -76,9 +87,12 @@ export default function DonacijePage() {
     setEmail('');
     setPremiumEpizode([]);
     setDatumIsteka(null);
+    setPatreonName('');
+    setError('');
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
     return date.toLocaleDateString('sr-RS', { 
       day: '2-digit', 
@@ -117,7 +131,7 @@ export default function DonacijePage() {
             </p>
 
             <a 
-              href="https://patreon.com/dijalog" 
+              href="https://www.patreon.com/c/dijalog" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.patreonBtn}
@@ -188,10 +202,15 @@ export default function DonacijePage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="tvoj@email.com"
                 className={styles.gateInput}
+                disabled={isSubmitting}
                 required
               />
-              <button type="submit" className={styles.gateButton}>
-                Pristup Sadržaju
+              <button 
+                type="submit" 
+                className={styles.gateButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Proveravamo...' : 'Pristup Sadržaju'}
               </button>
             </form>
 
@@ -214,7 +233,9 @@ export default function DonacijePage() {
           <div className={styles.welcomeContent}>
             <FaCrown className={styles.premiumCrown} />
             <div>
-              <h1 className={styles.welcomeTitle}>Dobrodošao nazad!</h1>
+              <h1 className={styles.welcomeTitle}>
+                Dobrodošao nazad{patreonName ? `, ${patreonName}` : ''}!
+              </h1>
               <p className={styles.welcomeEmail}>{email}</p>
               {datumIsteka && (
                 <p className={styles.expiryDate}>
@@ -287,7 +308,7 @@ export default function DonacijePage() {
           <h3>Hvala na podršci! ❤️</h3>
           <p>Tvoja podrška omogućava nam da nastavljamo sa radom i donosimo ti kvalitetan sadržaj.</p>
           <a 
-            href="https://patreon.com/dijalog" 
+            href="https://www.patreon.com/c/dijalog" 
             target="_blank" 
             rel="noopener noreferrer"
             className={styles.ctaButton}
