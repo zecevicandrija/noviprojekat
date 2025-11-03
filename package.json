@@ -7,7 +7,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "axios": "^1.12.2",
+    "axios": "^1.13.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -15,6 +15,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.6.0",
     "nodemailer": "^7.0.10",
+    "patreon": "^0.4.1",
     "resend": "^6.3.0"
   },
   "devDependencies": {
