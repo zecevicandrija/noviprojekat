@@ -232,6 +232,7 @@ router.post('/webhook', async (req, res) => {
 });
 
 // @route POST /api/patreon/sync-members
+// @route POST /api/patreon/sync-members
 router.post('/sync-members', protect, admin, async (req, res) => {
   try {
     const creatorAccessToken = process.env.PATREON_CREATOR_ACCESS_TOKEN;
@@ -242,6 +243,9 @@ router.post('/sync-members', protect, admin, async (req, res) => {
         message: 'PATREON_CREATOR_ACCESS_TOKEN ili PATREON_CAMPAIGN_ID nisu postavljeni' 
       });
     }
+
+    console.log('🔄 Starting sync with Patreon...');
+    console.log('Campaign ID:', campaignId);
 
     const response = await axios.get(
       `https://www.patreon.com/api/oauth2/v2/campaigns/${campaignId}/members?include=user&fields[member]=patron_status,full_name,email&fields[user]=email,full_name`,
@@ -255,24 +259,44 @@ router.post('/sync-members', protect, admin, async (req, res) => {
     const members = response.data.data;
     const included = response.data.included;
     
+    console.log('📊 Total members from Patreon:', members.length);
+    console.log('📊 Included data items:', included?.length || 0);
+    
     let synced = 0;
     let errors = 0;
+    let errorDetails = [];
 
     for (const member of members) {
       try {
         const patronStatus = member.attributes.patron_status;
         const patreonUserId = member.relationships.user.data.id;
         
+        console.log(`\n🔍 Processing member ID: ${member.id}, Patreon User ID: ${patreonUserId}`);
+        console.log(`   Status: ${patronStatus}`);
+        
         const user = included.find(item => item.type === 'user' && item.id === patreonUserId);
         
-        if (!user || !user.attributes.email) {
-          console.log(`⚠️ Email nije pronađen za member ID: ${member.id}`);
+        if (!user) {
+          const errorMsg = `User object not found in included data`;
+          console.log(`   ❌ ${errorMsg}`);
+          errorDetails.push({ memberId: member.id, error: errorMsg });
           errors++;
           continue;
         }
 
-        const email = user.attributes.email;
-        const fullName = user.attributes.full_name || member.attributes.full_name;
+        const email = user.attributes?.email;
+        const fullName = user.attributes?.full_name || member.attributes?.full_name;
+
+        console.log(`   Email: ${email || 'NOT FOUND'}`);
+        console.log(`   Name: ${fullName || 'NOT FOUND'}`);
+
+        if (!email) {
+          const errorMsg = `Email not found for member`;
+          console.log(`   ❌ ${errorMsg}`);
+          errorDetails.push({ memberId: member.id, patreonId: patreonUserId, error: errorMsg });
+          errors++;
+          continue;
+        }
 
         if (patronStatus === 'active_patron') {
           const datumIsteka = add30Days();
@@ -291,24 +315,40 @@ router.post('/sync-members', protect, admin, async (req, res) => {
           );
           
           synced++;
-          console.log(`✅ Synced: ${email}`);
+          console.log(`   ✅ Synced: ${email}`);
+        } else {
+          console.log(`   ⏭️  Skipped (status: ${patronStatus})`);
         }
       } catch (err) {
-        console.error(`Error syncing member:`, err);
+        console.error(`   ❌ Error syncing member ${member.id}:`, err.message);
+        errorDetails.push({ memberId: member.id, error: err.message });
         errors++;
       }
+    }
+
+    console.log('\n✅ Sync completed');
+    console.log(`   Synced: ${synced}`);
+    console.log(`   Errors: ${errors}`);
+    console.log(`   Total: ${members.length}`);
+
+    if (errorDetails.length > 0) {
+      console.log('\n⚠️ Error details:', JSON.stringify(errorDetails, null, 2));
     }
 
     res.json({ 
       message: 'Sync completed',
       synced: synced,
       errors: errors,
-      total: members.length
+      total: members.length,
+      errorDetails: errorDetails.slice(0, 5) // Vrati prvih 5 grešaka
     });
 
   } catch (error) {
-    console.error('Sync members error:', error);
-    res.status(500).json({ message: 'Greška pri sinhronizaciji' });
+    console.error('❌ Sync members error:', error.response?.data || error.message);
+    res.status(500).json({ 
+      message: 'Greška pri sinhronizaciji',
+      error: error.response?.data || error.message 
+    });
   }
 });
 
