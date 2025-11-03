@@ -26,6 +26,7 @@ router.post('/verify-access', async (req, res) => {
       return res.status(400).json({ message: 'Nevalidan email format' });
     }
     
+    // 1. Prvo proveri lokalno u bazi
     const [korisnici] = await pool.execute(
       `SELECT * FROM patreon_korisnici 
        WHERE email = ? AND status = 'aktivan' 
@@ -34,29 +35,97 @@ router.post('/verify-access', async (req, res) => {
     );
     
     if (korisnici.length > 0) {
-      res.json({ 
+      return res.json({ 
         hasAccess: true, 
         email: korisnici[0].email,
         datum_isteka: korisnici[0].datum_isteka,
         patreon_name: korisnici[0].patreon_name
       });
-    } else {
-      const [expiredKorisnik] = await pool.execute(
-        `SELECT * FROM patreon_korisnici WHERE email = ? AND datum_isteka < NOW()`,
-        [email]
-      );
-      
-      if (expiredKorisnik.length > 0) {
-        return res.status(403).json({ 
-          message: 'Vaša pretplata je istekla. Obnovite na Patreon-u.' 
-        });
-      }
-      
-      res.status(403).json({ 
+    }
+
+    // 2. Ako nije u bazi, proveri sa Patreon API-jem
+    console.log(`📡 Checking Patreon API for: ${email}`);
+    
+    const creatorAccessToken = process.env.PATREON_CREATOR_ACCESS_TOKEN;
+    const campaignId = process.env.PATREON_CAMPAIGN_ID;
+
+    if (!creatorAccessToken || !campaignId) {
+      // Ako nema tokena, samo odbij
+      return res.status(403).json({ 
         hasAccess: false,
         message: 'Nemate pristup. Podržite nas na Patreon-u!' 
       });
     }
+
+    try {
+      // Preuzmi sve patrona sa Patreon-a
+      const response = await axios.get(
+        `https://www.patreon.com/api/oauth2/v2/campaigns/${campaignId}/members?include=user&fields[member]=full_name,email,patron_status&fields[user]=email,full_name`,
+        {
+          headers: {
+            'Authorization': `Bearer ${creatorAccessToken}`
+          }
+        }
+      );
+
+      const members = response.data.data || [];
+      
+      // Pronađi patrona po email-u
+      const patron = members.find(m => {
+        const memberEmail = m.attributes.email;
+        return memberEmail && memberEmail.toLowerCase() === email.toLowerCase();
+      });
+
+      if (patron && patron.attributes.patron_status === 'active_patron') {
+        // Patron je aktivan - dodaj u bazu
+        const datumIsteka = add30Days();
+        const fullName = patron.attributes.full_name;
+        const patreonUserId = patron.relationships?.user?.data?.id;
+
+        await pool.execute(
+          `INSERT INTO patreon_korisnici 
+           (email, patreon_id, patreon_name, status, datum_uplate, datum_isteka, izvor) 
+           VALUES (?, ?, ?, 'aktivan', NOW(), ?, 'verify')
+           ON DUPLICATE KEY UPDATE 
+             status = 'aktivan',
+             patreon_name = ?,
+             datum_uplate = NOW(),
+             datum_isteka = ?`,
+          [email, patreonUserId, fullName, datumIsteka, fullName, datumIsteka]
+        );
+
+        console.log(`✅ Patron verified and added: ${email}`);
+
+        return res.json({ 
+          hasAccess: true, 
+          email: email,
+          datum_isteka: datumIsteka,
+          patreon_name: fullName
+        });
+      }
+    } catch (apiError) {
+      console.error('Patreon API error:', apiError.message);
+      // Ako API ne radi, nastavi sa odbijanjem
+    }
+
+    // 3. Proveri da li je istekao
+    const [expiredKorisnik] = await pool.execute(
+      `SELECT * FROM patreon_korisnici WHERE email = ? AND datum_isteka < NOW()`,
+      [email]
+    );
+    
+    if (expiredKorisnik.length > 0) {
+      return res.status(403).json({ 
+        message: 'Vaša pretplata je istekla. Obnovite na Patreon-u.' 
+      });
+    }
+    
+    // 4. Nije patron
+    res.status(403).json({ 
+      hasAccess: false,
+      message: 'Nemate pristup. Podržite nas na Patreon-u!' 
+    });
+    
   } catch (error) {
     console.error('Verify access error:', error);
     res.status(500).json({ message: 'Greška na serveru' });
