@@ -232,7 +232,6 @@ router.post('/webhook', async (req, res) => {
 });
 
 // @route POST /api/patreon/sync-members
-// @route POST /api/patreon/sync-members
 router.post('/sync-members', protect, admin, async (req, res) => {
   try {
     const creatorAccessToken = process.env.PATREON_CREATOR_ACCESS_TOKEN;
@@ -247,58 +246,78 @@ router.post('/sync-members', protect, admin, async (req, res) => {
     console.log('🔄 Starting sync with Patreon...');
     console.log('Campaign ID:', campaignId);
 
-    const response = await axios.get(
-      `https://www.patreon.com/api/oauth2/v2/campaigns/${campaignId}/members?include=user&fields[member]=patron_status,full_name,email&fields[user]=email,full_name`,
-      {
+    // VAŽNO: Koristi paginaciju jer može biti više od 20 patrona
+    let allMembers = [];
+    let nextUrl = `https://www.patreon.com/api/oauth2/v2/campaigns/${campaignId}/members?include=user,currently_entitled_tiers&fields[member]=full_name,is_follower,email,patron_status&fields[user]=email,full_name`;
+
+    while (nextUrl) {
+      const response = await axios.get(nextUrl, {
         headers: {
           'Authorization': `Bearer ${creatorAccessToken}`
         }
-      }
-    );
+      });
 
-    const members = response.data.data;
-    const included = response.data.included;
-    
-    console.log('📊 Total members from Patreon:', members.length);
-    console.log('📊 Included data items:', included?.length || 0);
-    
+      const members = response.data.data || [];
+      const included = response.data.included || [];
+
+      console.log(`📦 Fetched ${members.length} members in this batch`);
+
+      // Procesuj svaki member
+      for (const member of members) {
+        const patronStatus = member.attributes.patron_status;
+        const memberEmail = member.attributes.email; // Email iz member objekta
+        const fullName = member.attributes.full_name;
+        const patreonUserId = member.relationships?.user?.data?.id;
+
+        // Pokušaj uzeti email iz member attributes ili iz user objekta
+        let email = memberEmail;
+
+        if (!email && patreonUserId && included) {
+          const user = included.find(item => item.type === 'user' && item.id === patreonUserId);
+          if (user && user.attributes) {
+            email = user.attributes.email;
+          }
+        }
+
+        allMembers.push({
+          id: member.id,
+          email: email,
+          fullName: fullName,
+          patronStatus: patronStatus,
+          patreonUserId: patreonUserId
+        });
+      }
+
+      // Proveri da li ima još stranica (paginacija)
+      nextUrl = response.data.links?.next || null;
+      if (nextUrl) {
+        console.log('📄 Fetching next page...');
+      }
+    }
+
+    console.log(`📊 Total members fetched: ${allMembers.length}`);
+
     let synced = 0;
     let errors = 0;
     let errorDetails = [];
 
-    for (const member of members) {
+    for (const member of allMembers) {
       try {
-        const patronStatus = member.attributes.patron_status;
-        const patreonUserId = member.relationships.user.data.id;
-        
-        console.log(`\n🔍 Processing member ID: ${member.id}, Patreon User ID: ${patreonUserId}`);
-        console.log(`   Status: ${patronStatus}`);
-        
-        const user = included.find(item => item.type === 'user' && item.id === patreonUserId);
-        
-        if (!user) {
-          const errorMsg = `User object not found in included data`;
+        console.log(`\n🔍 Processing: ${member.email || 'NO EMAIL'} (Status: ${member.patronStatus})`);
+
+        if (!member.email) {
+          const errorMsg = `Email not found`;
           console.log(`   ❌ ${errorMsg}`);
-          errorDetails.push({ memberId: member.id, error: errorMsg });
+          errorDetails.push({ 
+            memberId: member.id, 
+            patreonId: member.patreonUserId, 
+            error: errorMsg 
+          });
           errors++;
           continue;
         }
 
-        const email = user.attributes?.email;
-        const fullName = user.attributes?.full_name || member.attributes?.full_name;
-
-        console.log(`   Email: ${email || 'NOT FOUND'}`);
-        console.log(`   Name: ${fullName || 'NOT FOUND'}`);
-
-        if (!email) {
-          const errorMsg = `Email not found for member`;
-          console.log(`   ❌ ${errorMsg}`);
-          errorDetails.push({ memberId: member.id, patreonId: patreonUserId, error: errorMsg });
-          errors++;
-          continue;
-        }
-
-        if (patronStatus === 'active_patron') {
+        if (member.patronStatus === 'active_patron') {
           const datumIsteka = add30Days();
           
           await pool.execute(
@@ -311,17 +330,20 @@ router.post('/sync-members', protect, admin, async (req, res) => {
                datum_uplate = NOW(),
                datum_isteka = ?,
                patreon_id = ?`,
-            [email, patreonUserId, fullName, datumIsteka, fullName, datumIsteka, patreonUserId]
+            [member.email, member.patreonUserId, member.fullName, datumIsteka, member.fullName, datumIsteka, member.patreonUserId]
           );
           
           synced++;
-          console.log(`   ✅ Synced: ${email}`);
+          console.log(`   ✅ Synced: ${member.email}`);
         } else {
-          console.log(`   ⏭️  Skipped (status: ${patronStatus})`);
+          console.log(`   ⏭️  Skipped (status: ${member.patronStatus})`);
         }
       } catch (err) {
-        console.error(`   ❌ Error syncing member ${member.id}:`, err.message);
-        errorDetails.push({ memberId: member.id, error: err.message });
+        console.error(`   ❌ Error syncing ${member.email}:`, err.message);
+        errorDetails.push({ 
+          email: member.email, 
+          error: err.message 
+        });
         errors++;
       }
     }
@@ -329,18 +351,18 @@ router.post('/sync-members', protect, admin, async (req, res) => {
     console.log('\n✅ Sync completed');
     console.log(`   Synced: ${synced}`);
     console.log(`   Errors: ${errors}`);
-    console.log(`   Total: ${members.length}`);
+    console.log(`   Total: ${allMembers.length}`);
 
     if (errorDetails.length > 0) {
-      console.log('\n⚠️ Error details:', JSON.stringify(errorDetails, null, 2));
+      console.log('\n⚠️ Error details:', JSON.stringify(errorDetails.slice(0, 10), null, 2));
     }
 
     res.json({ 
       message: 'Sync completed',
       synced: synced,
       errors: errors,
-      total: members.length,
-      errorDetails: errorDetails.slice(0, 5) // Vrati prvih 5 grešaka
+      total: allMembers.length,
+      errorDetails: errorDetails.slice(0, 5)
     });
 
   } catch (error) {
