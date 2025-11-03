@@ -56,10 +56,10 @@ export default function Footer() {
         <div className={styles.footerSection}>
           <h4 className={styles.sectionTitle}>Linkovi</h4>
           <div className={styles.footerLinks}>
-            <a href="#epizode">Epizode</a>
-            <a href="#blog">Blog</a>
-            <a href="#kontakt">Kontakt</a>
-            <a href="#shop">Shop</a>
+            <a href="/epizode">Epizode</a>
+            <a href="/blog">Blog</a>
+            <a href="/#kontakt">Kontakt</a>
+            <a href="/donacije">Donacije</a>
           </div>
         </div>
       </div>

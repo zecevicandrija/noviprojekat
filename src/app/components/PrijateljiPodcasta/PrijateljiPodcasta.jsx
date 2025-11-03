@@ -12,7 +12,7 @@ const PrijateljiPodcasta = () => {
     {
       id: 1,
       name: "Kasia Podcast",
-      logo: "/Assets/kasia2.png",
+      logo: "/Assets/kasija.png",
       url: "https://kasiapodcast.com",
       type: "studio",
       description: "Profesionalni Podcast Studiji",
@@ -53,6 +53,15 @@ const PrijateljiPodcasta = () => {
       type: "sponzor",
       description: "Prirodna kozmetika od gline i lekovitih biljaka",
       color: "#228e3bff"
+    },
+    {
+      id: 6,
+      name: "Blue Studio",
+      logo: "/Assets/bluestudio.png",
+      url: "www.bluestudio.rs",
+      type: "partner",
+      description: "Digitalna IT Agencija",
+      color: "#1e63d6"
     }
   ];
 

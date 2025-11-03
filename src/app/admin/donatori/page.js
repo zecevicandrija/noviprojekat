@@ -21,7 +21,8 @@ import {
   FaUserCog,
   FaTrash,
   FaClock,
-  FaCalendarPlus
+  FaCalendarPlus,
+  FaSync
 } from 'react-icons/fa';
 
 export default function AdminDonatori() {
@@ -31,6 +32,7 @@ export default function AdminDonatori() {
   const [donatori, setDonatori] = useState([]);
   const [filteredDonatori, setFilteredDonatori] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
   const [selectedDonator, setSelectedDonator] = useState(null);
   
   // Filteri
@@ -64,8 +66,34 @@ export default function AdminDonatori() {
       setDonatori(response.data);
     } catch (error) {
       console.error('Error fetching patrons:', error);
+      alert('Greška pri učitavanju donatora: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSyncWithPatreon = async () => {
+    if (!confirm('Sinhronizovati sve Patreon patrona? Ovo može trajati nekoliko sekundi.')) {
+      return;
+    }
+
+    try {
+      setSyncing(true);
+      const response = await api.post('/api/patreon/sync-members');
+      
+      alert(
+        `✅ Sinhronizacija završena!\n\n` +
+        `Sinhronizirano: ${response.data.synced}\n` +
+        `Greške: ${response.data.errors}\n` +
+        `Ukupno patrona na Patreon-u: ${response.data.total}`
+      );
+      
+      await fetchDonatori(); // Osvježi listu
+    } catch (error) {
+      console.error('Sync error:', error);
+      alert('❌ Greška pri sinhronizaciji: ' + (error.response?.data?.message || error.message));
+    } finally {
+      setSyncing(false);
     }
   };
 
@@ -125,9 +153,10 @@ export default function AdminDonatori() {
       await api.delete(`/api/patreon/patrons/${id}`);
       await fetchDonatori();
       setSelectedDonator(null);
+      alert('✅ Donator uspešno obrisan');
     } catch (error) {
       console.error('Error deleting patron:', error);
-      alert('Greška prilikom brisanja donatora');
+      alert('❌ Greška prilikom brisanja donatora: ' + (error.response?.data?.message || error.message));
     }
   };
 
@@ -137,16 +166,19 @@ export default function AdminDonatori() {
     }
 
     try {
-      await api.put(`/api/patreon/patrons/${id}/extend`);
+      const response = await api.put(`/api/patreon/patrons/${id}/extend`);
       await fetchDonatori();
+      
       if (selectedDonator?.id === id) {
-        const response = await api.get('/api/patreon/patrons');
-        const updatedDonator = response.data.find(d => d.id === id);
+        const updatedResponse = await api.get('/api/patreon/patrons');
+        const updatedDonator = updatedResponse.data.find(d => d.id === id);
         setSelectedDonator(updatedDonator);
       }
+      
+      alert('✅ Pristup produžen za 30 dana');
     } catch (error) {
       console.error('Error extending access:', error);
-      alert('Greška prilikom produžavanja pristupa');
+      alert('❌ Greška prilikom produžavanja pristupa: ' + (error.response?.data?.message || error.message));
     }
   };
 
@@ -179,9 +211,13 @@ export default function AdminDonatori() {
   };
 
   const getIzvorInfo = (izvor) => {
-    return izvor === 'webhook'
-      ? { label: 'Patreon (Auto)', icon: <FaRobot />, color: '#AB47BC' }
-      : { label: 'Manuelno', icon: <FaUserCog />, color: '#42A5F5' };
+    if (izvor === 'webhook') {
+      return { label: 'Patreon (Auto)', icon: <FaRobot />, color: '#AB47BC' };
+    } else if (izvor === 'oauth') {
+      return { label: 'Patreon (Sync)', icon: <FaSync />, color: '#9C27B0' };
+    } else {
+      return { label: 'Manuelno', icon: <FaUserCog />, color: '#42A5F5' };
+    }
   };
 
   const isExpired = (datumIsteka) => {
@@ -195,9 +231,10 @@ export default function AdminDonatori() {
     const inactiveCount = filteredDonatori.filter(d => d.status === 'neaktivan').length;
     const manualCount = filteredDonatori.filter(d => d.izvor === 'manual').length;
     const webhookCount = filteredDonatori.filter(d => d.izvor === 'webhook').length;
+    const oauthCount = filteredDonatori.filter(d => d.izvor === 'oauth').length;
     const expiredCount = filteredDonatori.filter(d => isExpired(d.datum_isteka)).length;
 
-    return { total, activeCount, inactiveCount, manualCount, webhookCount, expiredCount };
+    return { total, activeCount, inactiveCount, manualCount, webhookCount, oauthCount, expiredCount };
   };
 
   const stats = getStats();
@@ -214,9 +251,18 @@ export default function AdminDonatori() {
           <Link href="/admin" className={styles.backBtn}>
             <FaArrowLeft /> Nazad na Admin
           </Link>
-          <Link href="/admin/donatori/dodaj" className={styles.addBtn}>
-            <FaUserPlus /> Dodaj donatora
-          </Link>
+          <div className={styles.headerActions}>
+            <button 
+              onClick={handleSyncWithPatreon} 
+              className={styles.syncBtn}
+              disabled={syncing || loading}
+            >
+              <FaRobot /> {syncing ? 'Sinhronizujem...' : 'Sinhronizuj sa Patreon-om'}
+            </button>
+            <Link href="/admin/donatori/dodaj" className={styles.addBtn}>
+              <FaUserPlus /> Dodaj donatora
+            </Link>
+          </div>
         </div>
         
         <h1><FaCrown className={styles.titleIcon} /> Premium Donatori</h1>
@@ -264,22 +310,22 @@ export default function AdminDonatori() {
           </div>
 
           <div className={styles.statCard}>
+            <div className={styles.statIcon} style={{ background: 'rgba(156, 39, 176, 0.1)' }}>
+              <FaSync style={{ color: '#9C27B0' }} />
+            </div>
+            <div className={styles.statContent}>
+              <span className={styles.statNumber}>{stats.oauthCount}</span>
+              <span className={styles.statLabel}>Patreon (Sync)</span>
+            </div>
+          </div>
+
+          <div className={styles.statCard}>
             <div className={styles.statIcon} style={{ background: 'rgba(66, 165, 245, 0.1)' }}>
               <FaUserCog style={{ color: '#42A5F5' }} />
             </div>
             <div className={styles.statContent}>
               <span className={styles.statNumber}>{stats.manualCount}</span>
               <span className={styles.statLabel}>Manuelno dodati</span>
-            </div>
-          </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statIcon} style={{ background: 'rgba(255, 167, 38, 0.1)' }}>
-              <FaClock style={{ color: '#FFA726' }} />
-            </div>
-            <div className={styles.statContent}>
-              <span className={styles.statNumber}>{stats.expiredCount}</span>
-              <span className={styles.statLabel}>Istekli pristup</span>
             </div>
           </div>
         </div>
@@ -319,6 +365,7 @@ export default function AdminDonatori() {
             >
               <option value="">Svi izvori</option>
               <option value="webhook">Patreon (Auto)</option>
+              <option value="oauth">Patreon (Sync)</option>
               <option value="manual">Manuelno</option>
             </select>
           </div>
@@ -360,7 +407,7 @@ export default function AdminDonatori() {
           <div className={styles.empty}>
             {hasActiveFilters 
               ? 'Nema donatora koji odgovaraju filterima.'
-              : 'Nema donatora u bazi.'
+              : 'Nema donatora u bazi. Kliknite "Sinhronizuj sa Patreon-om" da uvezete patrona.'
             }
           </div>
         ) : (
@@ -451,6 +498,12 @@ export default function AdminDonatori() {
                     <span className={styles.infoLabel}>Email:</span>
                     <span className={styles.infoValue}>{selectedDonator.email}</span>
                   </div>
+                  {selectedDonator.patreon_name && (
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoLabel}>Ime:</span>
+                      <span className={styles.infoValue}>{selectedDonator.patreon_name}</span>
+                    </div>
+                  )}
                   {selectedDonator.patreon_id && (
                     <div className={styles.infoItem}>
                       <span className={styles.infoLabel}>Patreon ID:</span>
