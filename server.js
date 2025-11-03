@@ -1,20 +1,20 @@
 const express = require('express');
-const cors = require('cors');
+//const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
 // CORS - obavezno PRE routes
-app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'https://dijalogpodcast.com',
-        'https://www.dijalogpodcast.com',
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// app.use(cors({
+//     origin: [
+//         'http://localhost:3000',
+//         'https://dijalogpodcast.com',
+//         'https://www.dijalogpodcast.com',
+//     ],
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
