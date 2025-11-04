@@ -130,7 +130,7 @@ function HeroSection({ najnovijaEpizoda }) {
         <div className={styles.heroMedia} style={heroItemStyle(700)}>
           <div className={styles.card}>
             <Image 
-              src="/Assets/channels4_banner.jpg" 
+              src={najnovijaEpizoda?.thumbnail_url || "/Assets/channels4_banner.jpg"}
               alt="Dijalog hero" 
               width={760} 
               height={430} 
