@@ -14,7 +14,7 @@ export default function Footer() {
           <p className={styles.footerDescription}>
             Istorija, teologija, medicina, politika, tradicija, sport i biznis.
           </p>
-          <p>Web-sajt radio: <a href='https://zecevicdev.netlify.app' target='_blank'><b>zecevicdev</b></a></p>
+          <p>Web-sajt radio: <a href='https://zecevicdev.com' target='_blank'><b>zecevicdev.com</b></a></p>
         </div>
         
         <div className={styles.footerSection}>

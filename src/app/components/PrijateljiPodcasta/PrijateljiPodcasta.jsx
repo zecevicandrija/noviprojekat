@@ -20,7 +20,7 @@ const PrijateljiPodcasta = () => {
     },
     {
       id: 2,
-      name: "Zečević Andrija",
+      name: "Zečević Development",
       logo: "/Assets/zeceviclogo2.png",
       url: "https://zecevicdev.com",
       type: "partner",
