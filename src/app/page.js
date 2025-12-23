@@ -12,6 +12,7 @@ import BlogPreview from './components/BlogPreview/BlogPreview';
 import PrijateljiPodcasta from './components/PrijateljiPodcasta/PrijateljiPodcasta';
 import DonacijePreview from './components/DonacijePreview/DonacijePreview';
 import BibliotekaPreview from './components/BibliotekaPreview/BibliotekaPreview';
+import Uplate from './components/Uplate/Uplate';
 
 // AnimatedSection sa INLINE STYLES - ovo 100% radi
 function AnimatedSection({ children, animation = 'fade-up', delay = 0 }) {
@@ -321,6 +322,10 @@ export default function Page() {
         <section id='kontakt'>
           <ContactForms />
         </section>
+      </AnimatedSection>
+
+      <AnimatedSection animation="fade-up" delay={0}>
+        <Uplate />
       </AnimatedSection>
 
       <AnimatedSection animation="fade-in" delay={0}>

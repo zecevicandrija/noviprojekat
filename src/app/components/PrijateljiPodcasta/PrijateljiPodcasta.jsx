@@ -22,7 +22,7 @@ const PrijateljiPodcasta = () => {
       id: 2,
       name: "Zečević Andrija",
       logo: "/Assets/zeceviclogo2.png",
-      url: "https://zecevicdev.netlify.app",
+      url: "https://zecevicdev.com",
       type: "partner",
       description: "Programiranje i Web Design",
       color: "#f6190d"
@@ -58,7 +58,7 @@ const PrijateljiPodcasta = () => {
       id: 6,
       name: "Blue Studio",
       logo: "/Assets/bluestudio.png",
-      url: "www.bluestudio.rs",
+      url: "https://bluestudio.rs",
       type: "partner",
       description: "Digitalna IT Agencija",
       color: "#1e63d6"
